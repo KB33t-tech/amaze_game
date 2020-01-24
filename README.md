@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-it add README.md
 =======
 Name: Brian Duan
 Email: bduan@sfu.ca
