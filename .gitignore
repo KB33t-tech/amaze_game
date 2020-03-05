@@ -1,6 +1,9 @@
 #temps and logs#
 *.log
 project/*.temp
+<<<<<<< HEAD
+/target/
+=======
 
 
 # Package Files #
@@ -49,3 +52,4 @@ bin/
 build/
 /bin1/
 java/build/**
+>>>>>>> branch 'master' of http://git@csil-git1.cs.surrey.sfu.ca/276-group-18/project.git
