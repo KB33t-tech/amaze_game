@@ -1,7 +1,8 @@
+package project.project;
 
-public class main {
+public class Main {
 
-	public main() {
+	public Main() {
 		// TODO Auto-generated constructor stub
 	}
 	public static void main(String[] args) {
