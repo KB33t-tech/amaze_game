@@ -1,3 +1,6 @@
+/*
+package panel;
+
 
 public class Main {
 
@@ -9,3 +12,4 @@ public class Main {
 		System.out.println("Testing Maven!");
 	}
 }
+*/
