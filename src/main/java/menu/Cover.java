@@ -1,19 +1,11 @@
 package menu;
 
-import java.awt.Color;
-
-
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
-//import others.ImageLoader;
-
-//import others.ImageLoader;
 
 public class Cover{
 	
@@ -22,9 +14,7 @@ public class Cover{
 	
 	
 	public Cover(){
-//		img = ImageLoader.loadImage("assets/Cover no stairs.png");
-//		img = ImageLoader.loadImage("assets/Start 3000.png");
-//		instructionImg = ImageLoader.loadImage("assets/Instruction.png");
+
 		try {
 			coverImg = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("Menu.png"));
 			instructionImg = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("Instruction.png"));
