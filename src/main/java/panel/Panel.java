@@ -112,9 +112,6 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		
-		playButton.setVisible(true);
-		insButton.setVisible(true);
-		
 		// if game state is at start screen
 		if (state == START_SCREEN){
 			cover.drawCover(g2);		

@@ -1,4 +1,4 @@
-// Coded by Vera Yang
+
 
 package panel;
 
