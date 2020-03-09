@@ -33,7 +33,9 @@ public class Player{
 			playerX = playerX;		
 		}else playerX += xs;
 		
-	 	playerY += ys;
+		if (playerY + ys <= 0 || playerY + ys >= Panel.WIN_H- 200) {
+			playerY = playerY;		
+		}else playerY += ys;
 	}
 	
 	
