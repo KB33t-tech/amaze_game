@@ -19,7 +19,8 @@ public class Frame extends JFrame{
 		panel.setLayout(null);
 		this.add(panel);
 		this.pack();
-		this.setVisible(true);	
+		this.setVisible(true);
+		this.setResizable(false);
 	}
 
 	public static void main(String[] args) {
