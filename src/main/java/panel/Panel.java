@@ -1,18 +1,10 @@
 package panel;
 import java.awt.*;
 
-
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JButton;
@@ -23,7 +15,7 @@ import javax.swing.Timer;
 import menu.Cover;
 import board.Player;
 
-public class Panel extends JPanel implements ActionListener, MouseMotionListener, MouseListener, KeyListener {
+public class Panel extends JPanel implements ActionListener, KeyListener {
 	
 	public final static int WIN_X = 0;
 	public final static int WIN_Y = 0;
@@ -32,21 +24,22 @@ public class Panel extends JPanel implements ActionListener, MouseMotionListener
 	public final static int BOARD_H = 600;
 	
 	private JFrame frame;
+	
 	private JButton playButton, insButton, gobackButton, exitButton;
 	
-	public Cover cover;
+	private Cover cover;
 	private Player player;
 	
 	private Timer timer;
-	
-	public static int mouseX, mouseY;
 
+	// booleans that control the keyboard
 	private boolean up, down, left, right;
 	
 	private final static int START_SCREEN = -1;
 	private final static int INSTRUCTION = 0;
-	public final static int GAME = 1;
+	private final static int GAME = 1;
 
+	// set initial state of the game
 	public static int state = START_SCREEN;
 
 	
@@ -63,11 +56,7 @@ public class Panel extends JPanel implements ActionListener, MouseMotionListener
 
 		cover = new Cover();
 		player = respawn();
-		
-		addMouseMotionListener(this);
-		addMouseListener(this);
-		addKeyListener(this);
-		
+
 		timer = new Timer(30, this);
 		timer.start();
 		addKeyListener(this);
@@ -123,9 +112,7 @@ public class Panel extends JPanel implements ActionListener, MouseMotionListener
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		
-		playButton.setVisible(true);
-		insButton.setVisible(true);
-		
+		// if game state is at start screen
 		if (state == START_SCREEN){
 			cover.drawCover(g2);		
 			
@@ -136,7 +123,7 @@ public class Panel extends JPanel implements ActionListener, MouseMotionListener
 			timer.setDelay(150);
 		}
 		
-
+		// if game state is at in-game
 		if (state == GAME){
 			player.drawMe(g2);
 			
@@ -147,6 +134,7 @@ public class Panel extends JPanel implements ActionListener, MouseMotionListener
 			timer.setDelay(30);
 		}
 		
+		// if game state is at instruction
 		if (state == INSTRUCTION) {
 			cover.drawInstruction(g2);
 			
@@ -159,13 +147,13 @@ public class Panel extends JPanel implements ActionListener, MouseMotionListener
 
 
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
+
 		
 	}
 
 
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub// TODO Auto-generated method stub
+		
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
 			right = true;
 		if (e.getKeyCode() == KeyEvent.VK_LEFT)
@@ -179,7 +167,7 @@ public class Panel extends JPanel implements ActionListener, MouseMotionListener
 
 
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
+
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
 			right = false;
 		if (e.getKeyCode() == KeyEvent.VK_LEFT)
@@ -191,59 +179,25 @@ public class Panel extends JPanel implements ActionListener, MouseMotionListener
 	}
 
 
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+
+		// if "Play" button is pressed at the start screen, 
+		// change game state to GAME
 		if (e.getActionCommand() == "Play" && state == START_SCREEN) 
 			state = GAME;	
 		
+		// if "Instruction" button is pressed at the start screen, 
+		// change game state to INSTRUCTION
 		if (e.getActionCommand() == "Instruction" && state == START_SCREEN) 
 			state = INSTRUCTION;	
 		
+		// if "Go back" button is pressed at the instruction screen, 
+		// exit and change game state to START SCREEN
 		if (e.getActionCommand() == "Go back" && state == INSTRUCTION) 
 			state = START_SCREEN;
 		
+		// if "Exit" button is pressed during the game, 
+		// exit and change game state to START SCREEN
 		if (e.getActionCommand() == "Exit" && state == GAME) 
 			state = START_SCREEN;	
 		
@@ -251,18 +205,20 @@ public class Panel extends JPanel implements ActionListener, MouseMotionListener
 		if (right) {
 			player.move(player.playerSpeed, player.getYSpeed());	
 			}
+		
 		if (left) {
 			player.move(-player.playerSpeed, player.getYSpeed());
 		}
-			
-		if (up) {
-			player.move(player.getXSpeed(), -player.playerSpeed);
-		}
-			
-		if (down) {
-			player.move(player.getXSpeed(), player.playerSpeed);
-		}
 		
+		if(!(right || left)) {
+			if(up) {
+				player.move(player.getXSpeed(), -player.playerSpeed);
+			}
+			if(down) {
+				player.move(player.getXSpeed(), player.playerSpeed);
+			}
+		}
+	
 		repaint();
 	}
 	
