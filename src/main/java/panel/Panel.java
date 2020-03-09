@@ -1,6 +1,7 @@
 package panel;
 import java.awt.*;
 
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -16,6 +17,7 @@ import menu.Cover;
 import board.Board;
 import board.Enemy;
 import board.Player;
+import board.Cell;
 
 public class Panel extends JPanel implements ActionListener, KeyListener {
 	
@@ -34,13 +36,13 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	private Player player;
 	private Enemy enemy;
 	private Board board;
+	private Cell cell;
 	
 	private int tickCount;
 	
 	private Timer timer;
 
 	// booleans that control the keyboard
-	private boolean up, down, left, right;
 	private final static int UP = 0;
 	private final static int DOWN = 1;
 	private final static int LEFT = 2;
@@ -62,16 +64,13 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		this.setBackground(Color.white);
 		setPreferredSize(new Dimension(WIN_W, WIN_H));
 		
-		up= false;
-		down = false;
-		left = false;
-		right = false;
 		direction = -1;
 
 		cover = new Cover();
 		board = makeBoard();
-		player = respawn();
+		player = new Player();
 		enemy = spawnEnemy();
+		cell = new Cell();
 
 		tickCount = 0;
 		timer = new Timer(30, this);
@@ -118,12 +117,6 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		  }
 		}
 
-	// method respawn: respawn player at (0, 0)
-	public Player respawn() {
-		return new Player(0, 0, 0, 0);
-
-	}
-	
 	//method spawn: Puts the Enemy on the board diagonal to player
 	public Enemy spawnEnemy() {
 		return new Enemy(WIN_W-100, WIN_H-200, 0, 0);
@@ -196,16 +189,62 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 
 
 	public void keyReleased(KeyEvent e) {
-		/*
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
-			right = false;
-		if (e.getKeyCode() == KeyEvent.VK_LEFT)
-			left = false;
-		if (e.getKeyCode() == KeyEvent.VK_UP)
-			up = false;
-		if (e.getKeyCode() == KeyEvent.VK_DOWN)
-			down = false;
-		*/
+	}
+	
+	
+	// will try to make wall detection less repetitive
+	public int right_stop() {
+		for(int i = 0; i < cell.map.length; i++){
+			for(int j = 0; j < cell.map[i].length; j++){
+				
+				if(cell.map[player.getPlayerX() + 1][player.getPlayerY()] == 0) {
+//					System.out.println((player.getPlayerX()+1) + " " + player.getPlayerY());
+					direction = -1;
+				}
+			}
+		}	
+		return direction;
+	}
+	
+	
+	public int left_stop() {
+		for(int i = 0; i < cell.map.length; i++){
+			for(int j = 0; j < cell.map[i].length; j++){
+							
+				if(cell.map[player.getPlayerX() - 1][player.getPlayerY()] == 0) {
+//					System.out.println((player.getPlayerX()+1) + " " + player.getPlayerY());
+					direction = -1;
+				}				
+			}
+		}
+		return direction;
+	}
+	
+	public int up_stop() {
+		for(int i = 0; i < cell.map.length; i++){
+			for(int j = 0; j < cell.map[i].length; j++){
+				
+				if(cell.map[player.getPlayerX()][player.getPlayerY() - 1] == 0) {
+//					System.out.println((player.getPlayerX()) + " " + (player.getPlayerY()-1));
+					direction = -1;;
+				}
+			}
+		}
+		return direction;
+	}
+	
+	
+	public int down_stop() {
+		for(int i = 0; i < cell.map.length; i++){
+			for(int j = 0; j < cell.map[i].length; j++){
+							
+				if(cell.map[player.getPlayerX()][player.getPlayerY() + 1] == 0) {
+//					System.out.println(player.getPlayerX() + " " + (player.getPlayerY()+1));
+					direction = -1;;
+				}
+			}
+		}
+		return direction;
 	}
 
 
@@ -231,30 +270,41 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		if (e.getActionCommand() == "Exit" && state == GAME) 
 			state = START_SCREEN;	
 		
+		
 		if (tickCount == 60) {
-			if (direction == RIGHT) {
-				//player.move(player.playerSpeed, player.getYSpeed());	
-				player.move(100, 0);
+			
+			if(player.getPlayerX() != 9) {	// prevents the player from going out of the screen when at the exit
+				if (direction == RIGHT) {
+					if(right_stop() != -1) {
+						player.move(1, 0);
+					}
+				}
+			}
+			
+			if(player.getPlayerX() != 0) {	// prevents the player from going out of the screen when at the start point
+				if (direction == LEFT) {
+					if(left_stop() != -1) {
+						player.move(-1, 0);
+					}	
 				}
 			
-			if (direction == LEFT) {
-				//player.move(-player.playerSpeed, player.getYSpeed());
-				player.move(-100, 0);
+			}
+			if(direction == UP) {
+				if(up_stop() != -1) {
+					player.move(0,-1);		
+				}
 			}
 			
-			if(direction == UP) {
-				//player.move(player.getXSpeed(), -player.playerSpeed);
-				player.move(0,-100);				
-			}
 			if(direction == DOWN) {
-				//player.move(player.getXSpeed(), player.playerSpeed);
-				player.move(0, 100);
+				if(down_stop() != -1) {
+					player.move(0, 1);
+				}
 			}
 			
 			tickCount = 0;
 			direction = -1;
 		}
-		player.update();
+//		player.update();
 	
 		repaint();
 	}

@@ -39,7 +39,7 @@ public class Enemy {
 	
 	
 	public void drawMe(Graphics2D g2) {
-		g2.drawImage(enemyImg, enemyX, enemyY, 100, 100, null);
+		g2.drawImage(enemyImg, enemyX, enemyY, 60, 60, null);
 	}
 	
 	

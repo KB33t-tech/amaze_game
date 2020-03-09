@@ -7,30 +7,30 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import panel.Panel;
-
+import board.Cell;
 
 public class Player{
 	
 	private BufferedImage playerImg;
-	private double playerX, playerY;
+	private int playerX, playerY;
 	private double xSpeed, ySpeed;
-	public double playerSpeed = 7.0;
+
 	private boolean moving;
 	private double targetX, targetY; // to be replaced with coordinates of cells
 	
-	public Player(int xPos, int yPos, double xs, double ys) {
+	public Player() {
 		try {
 			playerImg = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("Player.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		playerX = xPos;
-		playerY = yPos;
-		xSpeed = xs;
-		ySpeed = ys;
+		playerX = 0;
+		playerY = 1;
+		xSpeed = 7.0;
+		ySpeed = 7.0;
 		moving = false;
-		targetX=-100;
-		targetY=-100;
+		targetX=-60;
+		targetY=-60;
 	}
 	/*
 	public void move(double xs, double ys) {
@@ -43,6 +43,9 @@ public class Player{
 		}else playerY += ys;
 	}*/
 	public void move(double xs, double ys) {
+		playerX += xs;
+		playerY += ys;
+		/*
 		if (xs!= 0) {
 		if (playerX + xs >= 0 && playerX + xs <= Panel.WIN_W- 100) {
 			xSpeed = xs/25;
@@ -57,7 +60,9 @@ public class Player{
 			moving = true;
 		}
 		}
+		*/
 	}
+	
 	public void update() {
 		if (moving) {
 			playerX += xSpeed;
@@ -66,23 +71,23 @@ public class Player{
 		if (playerX == targetX || playerY == targetY) {
 			
 			moving = false;
-			targetX=-100;
-			targetY=-100;
+			targetX=-60;
+			targetY=-60;
 			xSpeed = 0;
 			ySpeed = 0;
 		}
 	}
 	
 	public void drawMe(Graphics2D g2) {
-		g2.drawImage(playerImg,(int) playerX, (int)playerY, 100, 100, null);
+		g2.drawImage(playerImg, playerX*60, playerY*60, 60, 60, null);
 	}
 	
 	
-	public double getPlayerX() {
+	public int getPlayerX() {
 		return playerX;
 	}
 
-	public double getPlayerY() {
+	public int getPlayerY() {
 		return playerY;
 	}
 	
