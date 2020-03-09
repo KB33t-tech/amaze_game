@@ -25,6 +25,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	public final static int WIN_H = 700;
 	public final static int BOARD_H = 600;
 	
+	
 	private JFrame frame;
 	
 	private JButton playButton, insButton, gobackButton, exitButton;
@@ -34,14 +35,22 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	private Enemy enemy;
 	private Board board;
 	
+	private int tickCount;
+	
 	private Timer timer;
 
 	// booleans that control the keyboard
 	private boolean up, down, left, right;
+	private final static int UP = 0;
+	private final static int DOWN = 1;
+	private final static int LEFT = 2;
+	private final static int RIGHT = 3;
+	private int direction;
 	
 	private final static int START_SCREEN = -1;
 	private final static int INSTRUCTION = 0;
 	private final static int GAME = 1;
+	private final static int TICK = 60;
 
 	// set initial state of the game
 	public static int state = START_SCREEN;
@@ -57,13 +66,14 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		down = false;
 		left = false;
 		right = false;
+		direction = -1;
 
 		cover = new Cover();
 		board = makeBoard();
 		player = respawn();
 		enemy = spawnEnemy();
 
-		
+		tickCount = 0;
 		timer = new Timer(30, this);
 		timer.start();
 		addKeyListener(this);
@@ -174,19 +184,19 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	public void keyPressed(KeyEvent e) {
 		
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
-			right = true;
+			direction = RIGHT;
 		if (e.getKeyCode() == KeyEvent.VK_LEFT)
-			left = true;
+			direction = LEFT;
 		if (e.getKeyCode() == KeyEvent.VK_UP)
-			up = true;
+			direction = UP;
 		if (e.getKeyCode() == KeyEvent.VK_DOWN)
-			down = true;
+			direction = DOWN;
 		
 	}
 
 
 	public void keyReleased(KeyEvent e) {
-
+		/*
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
 			right = false;
 		if (e.getKeyCode() == KeyEvent.VK_LEFT)
@@ -195,11 +205,12 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 			up = false;
 		if (e.getKeyCode() == KeyEvent.VK_DOWN)
 			down = false;
+		*/
 	}
 
 
 	public void actionPerformed(ActionEvent e) {
-
+		tickCount ++;
 		// if "Play" button is pressed at the start screen, 
 		// change game state to GAME
 		if (e.getActionCommand() == "Play" && state == START_SCREEN) 
@@ -220,23 +231,30 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		if (e.getActionCommand() == "Exit" && state == GAME) 
 			state = START_SCREEN;	
 		
-	
-		if (right) {
-			player.move(player.playerSpeed, player.getYSpeed());	
+		if (tickCount == 60) {
+			if (direction == RIGHT) {
+				//player.move(player.playerSpeed, player.getYSpeed());	
+				player.move(100, 0);
+				}
+			
+			if (direction == LEFT) {
+				//player.move(-player.playerSpeed, player.getYSpeed());
+				player.move(-100, 0);
 			}
-		
-		if (left) {
-			player.move(-player.playerSpeed, player.getYSpeed());
+			
+			if(direction == UP) {
+				//player.move(player.getXSpeed(), -player.playerSpeed);
+				player.move(0,-100);				
+			}
+			if(direction == DOWN) {
+				//player.move(player.getXSpeed(), player.playerSpeed);
+				player.move(0, 100);
+			}
+			
+			tickCount = 0;
+			direction = -1;
 		}
-		
-		if(!(right || left)) {
-			if(up) {
-				player.move(player.getXSpeed(), -player.playerSpeed);
-			}
-			if(down) {
-				player.move(player.getXSpeed(), player.playerSpeed);
-			}
-		}
+		player.update();
 	
 		repaint();
 	}
