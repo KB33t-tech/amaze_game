@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import menu.Cover;
+import board.Enemy;
 import board.Player;
 
 public class Panel extends JPanel implements ActionListener, KeyListener {
@@ -29,6 +30,8 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	
 	private Cover cover;
 	private Player player;
+	private Enemy enemy;
+	
 	
 	private Timer timer;
 
@@ -56,6 +59,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 
 		cover = new Cover();
 		player = respawn();
+		enemy = spawnEnemy();
 
 		timer = new Timer(30, this);
 		timer.start();
@@ -104,8 +108,13 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	// method respawn: respawn player at (0, 0)
 	public Player respawn() {
 		return new Player(0, 0, 0, 0);
+
 	}
 	
+	//method spawn: Puts the Enemy on the board diagonal to player
+	public Enemy spawnEnemy() {
+		return new Enemy(WIN_W-100, WIN_H-200, 0, 0);
+	}
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -126,6 +135,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		// if game state is at in-game
 		if (state == GAME){
 			player.drawMe(g2);
+			enemy.drawMe(g2);
 			
 			playButton.setVisible(false);
 			insButton.setVisible(false);
