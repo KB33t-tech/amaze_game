@@ -27,7 +27,7 @@ public class Frame extends JFrame{
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Frame app = new Frame("276-gmae-project");
+					Frame app = new Frame("276-game-project");
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

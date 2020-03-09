@@ -8,6 +8,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import panel.Panel;
+
 
 public class Player{
 	
@@ -29,7 +31,10 @@ public class Player{
 	}
 	
 	public void move(double xs, double ys) {
-		playerX += xs;
+		if (playerX + xs <= 0 || playerX + xs >= Panel.WIN_W- 100) {
+			playerX = playerX;		
+		}else playerX += xs;
+		
 	 	playerY += ys;
 	}
 	
