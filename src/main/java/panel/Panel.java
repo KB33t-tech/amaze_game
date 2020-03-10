@@ -275,7 +275,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 			
 			//Trying to implement detection so that if player and enemy touch we end game
 			//For now start Screen will be Endgame state  but we should make a lose/win screen
-			if(player.getPlayerX()==enemy.getEnemyX() && player.getPlayerY() == enemy.getEnemyY()) {
+			if(player.getPlayerX() == enemy.getEnemyX() && player.getPlayerY() == enemy.getEnemyY()) {
 				state = START_SCREEN;
 			}
 			
