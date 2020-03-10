@@ -43,11 +43,11 @@ public class Enemy {
 	}
 	
 	
-	public double getenemyX() {
+	public double getEnemyX() {
 		return enemyX;
 	}
 
-	public double getenemyY() {
+	public double getEnemyY() {
 		return enemyY;
 	}
 	
