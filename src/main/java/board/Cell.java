@@ -36,7 +36,7 @@ public class Cell {
 						if(map[i][j] == 0) {
 							
 							// draw temporary walls 
-							g2.setColor(Color.white);
+							g2.setColor(Color.black);
 							g2.fillRect(i*cellSize, j*cellSize, cellSize, cellSize);
 						}
 					}

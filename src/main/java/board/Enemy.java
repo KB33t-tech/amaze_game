@@ -32,7 +32,7 @@ public class Enemy {
 			enemyX = enemyX;		
 		}else enemyX += xs;
 		
-		if (enemyY + ys <= 0 || enemyY + ys >= Panel.WIN_H- 200) {
+		if (enemyY + ys <= 0 || enemyY + ys >= Panel.WIN_H- 230) {
 			enemyY = enemyY;		
 		}else enemyY += ys;
 	}

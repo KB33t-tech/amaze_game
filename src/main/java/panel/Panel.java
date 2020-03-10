@@ -119,7 +119,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 
 	//method spawn: Puts the Enemy on the board diagonal to player
 	public Enemy spawnEnemy() {
-		return new Enemy(WIN_W-100, WIN_H-200, 0, 0);
+		return new Enemy(WIN_W-60, WIN_H-230, 0, 0);
 	}
 	
 	//Loads the board
