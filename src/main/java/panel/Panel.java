@@ -271,7 +271,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 			state = START_SCREEN;	
 		
 		
-		if (tickCount == 60) {
+		if (tickCount == 6) {			//Changing tick count speeds up player
 			
 			if(player.getPlayerX() != 9) {	// prevents the player from going out of the screen when at the exit
 				if (direction == RIGHT) {
