@@ -271,10 +271,9 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 			state = START_SCREEN;	
 		
 		
-		if (tickCount == TICK) {			//Changing tick count speeds up player
-			
-			//Trying to implement detection so that if player and enemy touch we end game
-			//For now start Screen will be Endgame state  but we should make a lose/win screen
+		if (tickCount == TICK) {			//Changing TICK speeds up player
+						
+			//Detects if player and moving enemy touch
 			if(player.getPlayerX() == enemy.getEnemyX() && player.getPlayerY() == enemy.getEnemyY()) {
 				state = START_SCREEN;
 			}

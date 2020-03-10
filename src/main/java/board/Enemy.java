@@ -21,25 +21,23 @@ public class Enemy {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		enemyX = xPos;
-		enemyY = yPos;
+		enemyX = 9;
+		enemyY = 8;
 		xSpeed = xs;
 		ySpeed = ys;
 	}
 	
 	public void move(double xs, double ys) {
-		if (enemyX + xs <= 0 || enemyX + xs >= Panel.WIN_W- 100) {
-			enemyX = enemyX;		
-		}else enemyX += xs;
-		
-		if (enemyY + ys <= 0 || enemyY + ys >= Panel.WIN_H- 230) {
-			enemyY = enemyY;		
-		}else enemyY += ys;
+		//going to have to implement wall checker here? 
+		//Need to build a search and move fuction.
+		enemyX+=xs;
+		enemyY+=ys;
+
 	}
 	
 	
 	public void drawMe(Graphics2D g2) {
-		g2.drawImage(enemyImg, enemyX, enemyY, 60, 60, null);
+		g2.drawImage(enemyImg, enemyX*60, enemyY*60, 60, 60, null);
 	}
 	
 	
