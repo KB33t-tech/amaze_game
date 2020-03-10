@@ -272,6 +272,8 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		
 		
 		if (tickCount == TICK) {			//Changing TICK speeds up player
+			
+			enemy.move();
 						
 			//Detects if player and moving enemy touch
 			if(player.getPlayerX() == enemy.getEnemyX() && player.getPlayerY() == enemy.getEnemyY()) {
