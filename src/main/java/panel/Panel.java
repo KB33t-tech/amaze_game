@@ -52,7 +52,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	private final static int START_SCREEN = -1;
 	private final static int INSTRUCTION = 0;
 	private final static int GAME = 1;
-	private final static int TICK = 60;
+	private final static int TICK = 6;
 
 	// set initial state of the game
 	public static int state = START_SCREEN;
@@ -271,7 +271,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 			state = START_SCREEN;	
 		
 		
-		if (tickCount == 6) {			//Changing tick count speeds up player
+		if (tickCount == TICK) {			//Changing tick count speeds up player
 			
 			//Trying to implement detection so that if player and enemy touch we end game
 			//For now start Screen will be Endgame state  but we should make a lose/win screen
