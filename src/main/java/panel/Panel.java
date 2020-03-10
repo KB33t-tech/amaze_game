@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -272,8 +273,12 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		
 		
 		if (tickCount == TICK) {			//Changing TICK speeds up player
-			
-			enemy.move();
+			/** @author kevin
+			 * I'm trying to implement AI and player detection here but should probably 
+			 * be more encapsulated, could have the move function pass in the state by value
+			 */
+		
+			//enemy.move(player.getPlayerX(),player.getPlayerY(), cell.map, enemy.getWeightedMap());
 						
 			//Detects if player and moving enemy touch
 			if(player.getPlayerX() == enemy.getEnemyX() && player.getPlayerY() == enemy.getEnemyY()) {
