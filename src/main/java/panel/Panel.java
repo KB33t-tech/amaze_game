@@ -316,6 +316,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 			 * be more encapsulated, could have the move function pass in the state by value
 			 */
 		
+			// Moved Player-Enemy collision detection to PaintComponent() so that it resets every game
 			//enemy.move(player.getPlayerX(),player.getPlayerY(), cell.map, enemy.getWeightedMap());
 						
 			

@@ -1,7 +1,11 @@
 package board;
 
 import java.awt.Color;
+
 import java.awt.Graphics2D;
+import java.util.ArrayList;
+import board.Reward;
+import board.Punishment;
 
 public class Cell {
 	
@@ -21,6 +25,12 @@ public class Cell {
 			{ 0, 0, 1, 1, 1, 1, 1, 0, 1, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 },
 	};
+	
+	// create an arrayList of regular rewards
+	private ArrayList <Reward> reward = new ArrayList<Reward>();
+		
+	// create an arrayList of punishments
+	private ArrayList <Punishment> punishment = new ArrayList<Punishment>();
 	
 	
 	public Cell() {
