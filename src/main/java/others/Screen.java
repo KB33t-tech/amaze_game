@@ -1,23 +1,26 @@
-package menu;
+package others;
 
 import java.awt.Graphics2D;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
 
-public class Cover{
+public class Screen{
 	
 	private BufferedImage coverImg;
 	private BufferedImage instructionImg;
+	private BufferedImage loseImg;
 	
 	
-	public Cover(){
+	public Screen(){
 
 		try {
 			coverImg = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("Menu.png"));
 			instructionImg = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("Instruction.png"));
+			loseImg = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("Lose.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -33,6 +36,9 @@ public class Cover{
 	public void drawInstruction(Graphics2D g2) {
 		g2.drawImage(instructionImg, 0, 0, 600, 700, null);
 	}
-
+	
+	public void drawLose(Graphics2D g2) {
+		g2.drawImage(loseImg, 0, 0, 600, 700, null);
+	}
 	
 }

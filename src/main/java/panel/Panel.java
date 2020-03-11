@@ -2,6 +2,7 @@ package panel;
 import java.awt.*;
 
 
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -14,10 +15,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import menu.Cover;
 import board.Board;
 import board.Enemy;
 import board.Player;
+import others.Screen;
 import board.Cell;
 
 public class Panel extends JPanel implements ActionListener, KeyListener {
@@ -30,16 +31,16 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	
 	
 	private JFrame frame;
+	private JButton playButton, insButton, gobackButton, exitButton, replayButton;
 	
-	private JButton playButton, insButton, gobackButton, exitButton;
-	
-	private Cover cover;
+	private Screen screen;
 	private Player player;
 	private Enemy enemy;
 	private Board board;
 	private Cell cell;
 	
 	private int tickCount;
+	private boolean replay, exit;
 	
 	private Timer timer;
 
@@ -53,6 +54,8 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	private final static int START_SCREEN = -1;
 	private final static int INSTRUCTION = 0;
 	private final static int GAME = 1;
+	private final static int WIN = 2;
+	private final static int LOSE = 3;
 	private final static int TICK = 6;
 
 	// set initial state of the game
@@ -67,13 +70,15 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		
 		direction = -1;
 
-		cover = new Cover();
+		screen = new Screen();
 		board = makeBoard();
 		player = new Player();
 		enemy = spawnEnemy();
 		cell = new Cell();
 
 		tickCount = 0;
+		replay = false;
+		exit = false;
 		timer = new Timer(30, this);
 		timer.start();
 		addKeyListener(this);
@@ -107,6 +112,12 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		exitButton.setVisible(false);
 		exitButton.addActionListener(this);
 		
+		replayButton = new JButton("Replay");
+		this.add(replayButton);
+		replayButton.setBounds(WIN_W/2-40, 650, 80, 30);
+		replayButton.setVisible(false);
+		replayButton.addActionListener(this);
+		
 	}
 	
 	
@@ -135,12 +146,13 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		
 		// if game state is at start screen
 		if (state == START_SCREEN){
-			cover.drawCover(g2);		
+			screen.drawCover(g2);		
 			
 			playButton.setVisible(true);
 			insButton.setVisible(true);
 			gobackButton.setVisible(false);
 			exitButton.setVisible(false);
+			replayButton.setVisible(false);
 			timer.setDelay(150);
 		}
 		
@@ -154,17 +166,34 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 			insButton.setVisible(false);
 			gobackButton.setVisible(false);
 			exitButton.setVisible(true);
+			replayButton.setVisible(false);
 			timer.setDelay(30);
+			
+			//Detects if player and moving enemy touch
+			if(player.getPlayerX() == enemy.getEnemyX() && player.getPlayerY() == enemy.getEnemyY()) {
+				state = LOSE;
+			}
 		}
 		
 		// if game state is at instruction
 		if (state == INSTRUCTION) {
-			cover.drawInstruction(g2);
+			screen.drawInstruction(g2);
 			
 			playButton.setVisible(false);
 			insButton.setVisible(false);
 			gobackButton.setVisible(true);
 			exitButton.setVisible(false);
+			replayButton.setVisible(false);
+		}
+		
+		if (state == LOSE) {
+			screen.drawLose(g2);
+			
+			playButton.setVisible(false);
+			insButton.setVisible(false);
+			gobackButton.setVisible(false);
+			exitButton.setVisible(false);
+			replayButton.setVisible(true);
 		}
 	}
 
@@ -268,8 +297,17 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		
 		// if "Exit" button is pressed during the game, 
 		// exit and change game state to START SCREEN
-		if (e.getActionCommand() == "Exit" && state == GAME) 
-			state = START_SCREEN;	
+		if (e.getActionCommand() == "Exit" && state == GAME) {
+			state = START_SCREEN;
+			exit = true;
+		}
+			
+		
+		if (e.getActionCommand() == "Replay") {
+			state = START_SCREEN;
+			replay = true;
+		}
+			
 		
 		
 		if (tickCount == TICK) {			//Changing TICK speeds up player
@@ -280,10 +318,6 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		
 			//enemy.move(player.getPlayerX(),player.getPlayerY(), cell.map, enemy.getWeightedMap());
 						
-			//Detects if player and moving enemy touch
-			if(player.getPlayerX() == enemy.getEnemyX() && player.getPlayerY() == enemy.getEnemyY()) {
-				state = START_SCREEN;
-			}
 			
 			if(player.getPlayerX() != 9) {	// prevents the player from going out of the screen when at the exit
 				if (direction == RIGHT) {
@@ -319,6 +353,18 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 //		player.update();
 	
 		repaint();
+		
+		if(replay || exit){
+			frame.dispose();
+			try {
+				frame = new Frame("276-game-project");
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			
+			replay = false;
+			exit = false;
+		}
 	}
 	
 }
