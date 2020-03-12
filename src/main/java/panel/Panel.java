@@ -120,14 +120,6 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		
 	}
 	
-	
-	public static boolean pointInRect(int a, int b, int x, int y, int w, int h) {
-		  if ((a >= x && a <= x + w) && (b >= y && b <= y + h)) {
-		    return true;
-		  } else {
-		    return false;
-		  }
-		}
 
 	//method spawn: Puts the Enemy on the board diagonal to player
 	public Enemy spawnEnemy() {
@@ -223,7 +215,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	
 	
 	// will try to make wall detection less repetitive
-	public int right_stop() {
+	private int right_stop() {
 		for(int i = 0; i < cell.map.length; i++){
 			for(int j = 0; j < cell.map[i].length; j++){
 				
@@ -237,7 +229,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	}
 	
 	
-	public int left_stop() {
+	private int left_stop() {
 		for(int i = 0; i < cell.map.length; i++){
 			for(int j = 0; j < cell.map[i].length; j++){
 							
@@ -250,7 +242,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		return direction;
 	}
 	
-	public int up_stop() {
+	private int up_stop() {
 		for(int i = 0; i < cell.map.length; i++){
 			for(int j = 0; j < cell.map[i].length; j++){
 				
@@ -264,7 +256,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	}
 	
 	
-	public int down_stop() {
+	private int down_stop() {
 		for(int i = 0; i < cell.map.length; i++){
 			for(int j = 0; j < cell.map[i].length; j++){
 							
