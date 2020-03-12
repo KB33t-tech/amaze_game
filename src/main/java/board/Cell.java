@@ -85,7 +85,8 @@ public class Cell {
 			randomX = (int)Item.random(1, 9);
 			randomY = (int)Item.random(1, 9);		
 			
-			if(item_map[randomX][randomY] != 0 && item_map[randomX][randomY] != 99 && item_map[randomX][randomY] != 5 ) {
+			if(randomX != 1 && randomX != 2 && randomY != 1 && item_map[randomX][randomY] != 0 
+					&& item_map[randomX][randomY] != 99 && item_map[randomX][randomY] != 5 ) {
 				item_map[randomX][randomY] = 5;
 				punishmentNum+=1;
 				
