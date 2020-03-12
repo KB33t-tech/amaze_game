@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 public class Punishment extends Item{
 	
 	private BufferedImage punishmentImg;
-	private int punishmentX, punishmentY;
+	public int punishmentX, punishmentY;
 	
 	public Punishment(int xPos, int yPos) {
 		
@@ -27,7 +27,7 @@ public class Punishment extends Item{
 	// draw punishments
 	@Override
 	public void drawMe(Graphics2D g2) {
-		g2.drawImage(punishmentImg, punishmentX, punishmentY, 60, 60, null);
+		g2.drawImage(punishmentImg, punishmentX*60, punishmentY*60, 60, 60, null);
 	}
 
 	
@@ -36,7 +36,7 @@ public class Punishment extends Item{
 	public int changeScore(int score) {
 		
 		// decrease the score by this amount:
-		score -= 100;	// temporary amount, can be changed to anything
+		score -= 50;	// temporary amount, can be changed to anything
 		
 		return score;
 	}

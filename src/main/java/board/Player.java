@@ -12,7 +12,7 @@ import board.Cell;
 public class Player{
 	
 	private BufferedImage playerImg;
-	private int playerX, playerY;
+	private static int playerX, playerY;
 	private double xSpeed, ySpeed;
 
 	private boolean moving;
@@ -83,11 +83,11 @@ public class Player{
 	}
 	
 	
-	public int getPlayerX() {
+	public static int getPlayerX() {
 		return playerX;
 	}
 
-	public int getPlayerY() {
+	public static int getPlayerY() {
 		return playerY;
 	}
 	

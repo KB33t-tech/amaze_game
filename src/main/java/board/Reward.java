@@ -27,7 +27,7 @@ public class Reward extends Item{
 	// draw regular rewards
 	@Override
 	public void drawMe(Graphics2D g2) {
-		g2.drawImage(fireImg, fireX, fireY, 60, 60, null);
+		g2.drawImage(fireImg, fireX*60, fireY*60, 60, 60, null);
 	}
 
 	// change the score when Player collects a regular reward
