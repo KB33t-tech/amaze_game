@@ -40,14 +40,14 @@ public class Player{
 		playerX+=xs;
 		playerY+=ys;
 		if (xs!= 0) {
-		if (playerX + xs >= 0 && playerX + xs <= 9) {
+		if (playerX + xs >= 0 && playerX + xs <= 10) {
 			xSpeed = xs*4;
 			targetX = (playerX)*60;
 			moving = true;
 		}
 		}
 		if (ys!= 0) {
-		if (playerY + ys >= 0 && playerY + ys <= 9) {
+		if (playerY + ys >= 0 && playerY + ys <= 10) {
 			ySpeed = ys*4;
 			targetY = (playerY)*60;
 			moving = true;

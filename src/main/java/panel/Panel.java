@@ -233,6 +233,8 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	
 	// will try to make wall detection less repetitive
 	private int right_stop() {
+		
+		try {
 		for(int i = 0; i < cell.getMap().length; i++){
 			for(int j = 0; j < cell.getMap()[i].length; j++){
 				
@@ -242,6 +244,13 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 				}
 			}
 		}	
+		
+		}catch(ArrayIndexOutOfBoundsException e) {
+			System.out.println("Out of bound");
+		}catch(Exception e2) {
+			System.out.println("Others");
+		}
+		
 		return direction;
 	}
 	
@@ -332,6 +341,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 			}	
 			player.beacon(weightedMap, cell.getMap(),player.getPlayerX(),player.getPlayerY(),0);
 			enemy.track(weightedMap);
+			
 			if(player.getPlayerX() != 9) {	// prevents the player from going out of the screen when at the exit
 				if (direction == RIGHT) {
 					if(right_stop() != -1) {

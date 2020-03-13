@@ -64,7 +64,7 @@ public class Cell {
 		// randomly generates the position for each regular reward, 
 		// and change the value of that cell to 99 to indicate that it contains a regular reward
 		// a total of 12 regular rewards will be generated (can be any number)
-		for (int i = 0; rewardNum < 20; i++){
+		for (int i = 0; rewardNum < 15; i++){
 			randomX = (int)Item.random(1, 9);
 			randomY = (int)Item.random(1, 9);		
 			
@@ -81,7 +81,7 @@ public class Cell {
 		// randomly generates the position for each punishment
 		// and change the value of that cell to 5 to indicate that it contains a regular reward
 		// a total of 4 regular rewards will be generated (can be any number)
-		for (int i = 0; punishmentNum < 4; i++){
+		for (int i = 0; punishmentNum < 3; i++){
 			randomX = (int)Item.random(1, 9);
 			randomY = (int)Item.random(1, 9);		
 			
