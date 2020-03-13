@@ -14,6 +14,7 @@ public class Player{
 	private BufferedImage playerImg;
 	private static int playerX, playerY;
 	private double xSpeed, ySpeed;
+	private int posX, posY; //to be used for drawing animation
 
 	private boolean moving;
 	private double targetX, targetY; // to be replaced with coordinates of cells
@@ -26,49 +27,78 @@ public class Player{
 		}
 		playerX = 0;
 		playerY = 1;
-		xSpeed = 7.0;
-		ySpeed = 7.0;
+		posX = playerX*60;
+		posY = playerY*60;
+		xSpeed = 0;
+		ySpeed = 0;
 		moving = false;
 		targetX=-60;
 		targetY=-60;
 	}
-	/*
+	
 	public void move(double xs, double ys) {
-		if (playerX + xs <= 0 || playerX + xs >= Panel.WIN_W- 100) {
-			playerX = playerX;		
-		}else playerX += xs;
-		
-		if (playerY + ys <= 0 || playerY + ys >= Panel.WIN_H- 200) {
-			playerY = playerY;		
-		}else playerY += ys;
-	}*/
-	public void move(double xs, double ys) {
-		playerX += xs;
-		playerY += ys;
-		/*
+		playerX+=xs;
+		playerY+=ys;
 		if (xs!= 0) {
-		if (playerX + xs >= 0 && playerX + xs <= Panel.WIN_W- 100) {
-			xSpeed = xs/25;
-			targetX = playerX + xs;
+		if (playerX + xs >= 0 && playerX + xs <= 9) {
+			xSpeed = xs*4;
+			targetX = (playerX)*60;
 			moving = true;
 		}
 		}
 		if (ys!= 0) {
-		if (playerY + ys >= 0 && playerY + ys <= Panel.WIN_H- 200) {
-			ySpeed = ys/25;
-			targetY = playerY + ys;
+		if (playerY + ys >= 0 && playerY + ys <= 9) {
+			ySpeed = ys*4;
+			targetY = (playerY)*60;
 			moving = true;
 		}
 		}
-		*/
+		
 	}
-	
+	public void beacon( int wMap[][], int map[][],int x, int y, int count) { // every tick the player will update the weighted map to show the
+		/*for (int i=0;i<10;i++) {					 // shortest path to it
+			for(int j=0;j<10;j++) {
+				if (map[i][j]==0) {
+					wMap[i][j] = 1000;
+				}else {
+					wMap[i][j] = Math.abs(playerX - i)+ Math.abs(playerY - j);
+				}
+			}
+		}*/
+		wMap[playerX][playerY] = 0;
+		count++;
+		if(x>=1) {
+			if(map[x-1][y]!=0 && count < wMap[x-1][y]) {
+				wMap[x-1][y]= count;
+				beacon(wMap,map,x-1,y,count);
+			}
+		}
+		if(x<=8) {
+			if(map[x+1][y]!=0 && count < wMap[x+1][y]) {
+				wMap[x+1][y]= count;
+				beacon(wMap,map,x+1,y,count);
+			}
+		}
+		if(y>=1) {
+			if(map[x][y-1]!=0 && count < wMap[x][y-1]) {
+				wMap[x][y-1]= count;
+				beacon(wMap,map,x,y-1,count);
+			}
+		}
+		if(y<=8) {
+			if(map[x][y+1]!=0 && count < wMap[x][y+1]) {
+				wMap[x][y+1]= count;
+				beacon(wMap,map,x,y+1,count);
+			}
+		}
+		
+	}
 	public void update() {
 		if (moving) {
-			playerX += xSpeed;
-			playerY += ySpeed;
+			posX += xSpeed;
+			posY += ySpeed;
 		}
-		if (playerX == targetX || playerY == targetY) {
+		if (posX == targetX || posY == targetY) {
 			
 			moving = false;
 			targetX=-60;
@@ -79,7 +109,7 @@ public class Player{
 	}
 	
 	public void drawMe(Graphics2D g2) {
-		g2.drawImage(playerImg, playerX*60, playerY*60, 60, 60, null);
+		g2.drawImage(playerImg, posX, posY, 60, 60, null);
 	}
 	
 	

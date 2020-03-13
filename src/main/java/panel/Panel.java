@@ -56,7 +56,19 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	private final static int GAME = 1;
 	private final static int WIN = 2;
 	private final static int LOSE = 3;
-	private final static int TICK = 6;
+	private final static int TICK = 30;
+	private int weightedMap[][]= {
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	};
 
 	// set initial state of the game
 	public static int state = START_SCREEN;
@@ -86,6 +98,11 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		
 		this.frame = frame;
 		
+		for(int i=0;i<10;i++) {
+			for(int j=0;j<10;j++) {
+				weightedMap[i][j] = 10000;
+			}
+		}
 		
 		// add buttons
 		playButton = new JButton("Play");
@@ -216,10 +233,10 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	
 	// will try to make wall detection less repetitive
 	private int right_stop() {
-		for(int i = 0; i < cell.map.length; i++){
-			for(int j = 0; j < cell.map[i].length; j++){
+		for(int i = 0; i < cell.getMap().length; i++){
+			for(int j = 0; j < cell.getMap()[i].length; j++){
 				
-				if(cell.map[player.getPlayerX() + 1][player.getPlayerY()] == 0) {
+				if(cell.getMap()[player.getPlayerX() + 1][player.getPlayerY()] == 0) {
 //					System.out.println((player.getPlayerX()+1) + " " + player.getPlayerY());
 					direction = -1;
 				}
@@ -230,10 +247,10 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	
 	
 	private int left_stop() {
-		for(int i = 0; i < cell.map.length; i++){
-			for(int j = 0; j < cell.map[i].length; j++){
+		for(int i = 0; i < cell.getMap().length; i++){
+			for(int j = 0; j < cell.getMap()[i].length; j++){
 							
-				if(cell.map[player.getPlayerX() - 1][player.getPlayerY()] == 0) {
+				if(cell.getMap()[player.getPlayerX() - 1][player.getPlayerY()] == 0) {
 //					System.out.println((player.getPlayerX()+1) + " " + player.getPlayerY());
 					direction = -1;
 				}				
@@ -243,10 +260,10 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	}
 	
 	private int up_stop() {
-		for(int i = 0; i < cell.map.length; i++){
-			for(int j = 0; j < cell.map[i].length; j++){
+		for(int i = 0; i < cell.getMap().length; i++){
+			for(int j = 0; j < cell.getMap()[i].length; j++){
 				
-				if(cell.map[player.getPlayerX()][player.getPlayerY() - 1] == 0) {
+				if(cell.getMap()[player.getPlayerX()][player.getPlayerY() - 1] == 0) {
 //					System.out.println((player.getPlayerX()) + " " + (player.getPlayerY()-1));
 					direction = -1;;
 				}
@@ -257,10 +274,10 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	
 	
 	private int down_stop() {
-		for(int i = 0; i < cell.map.length; i++){
-			for(int j = 0; j < cell.map[i].length; j++){
+		for(int i = 0; i < cell.getMap().length; i++){
+			for(int j = 0; j < cell.getMap()[i].length; j++){
 							
-				if(cell.map[player.getPlayerX()][player.getPlayerY() + 1] == 0) {
+				if(cell.getMap()[player.getPlayerX()][player.getPlayerY() + 1] == 0) {
 //					System.out.println(player.getPlayerX() + " " + (player.getPlayerY()+1));
 					direction = -1;;
 				}
@@ -308,10 +325,13 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 			 * be more encapsulated, could have the move function pass in the state by value
 			 */
 		
-			// Moved Player-Enemy collision detection to PaintComponent() so that it resets every game
-			//enemy.move(player.getPlayerX(),player.getPlayerY(), cell.map, enemy.getWeightedMap());
-						
-			
+			for(int i=0;i<10;i++) {
+				for(int j=0;j<10;j++) {
+					weightedMap[i][j] = 10000;
+				}
+			}	
+			player.beacon(weightedMap, cell.getMap(),player.getPlayerX(),player.getPlayerY(),0);
+			enemy.track(weightedMap);
 			if(player.getPlayerX() != 9) {	// prevents the player from going out of the screen when at the exit
 				if (direction == RIGHT) {
 					if(right_stop() != -1) {
@@ -343,7 +363,8 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 			tickCount = 0;
 			direction = -1;
 		}
-//		player.update();
+		player.update();
+		enemy.update();
 	
 		repaint();
 		

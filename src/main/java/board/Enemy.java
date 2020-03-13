@@ -12,25 +12,13 @@ import panel.Panel;
 public class Enemy {
 	
 	private BufferedImage enemyImg;
-	public int enemyX, enemyY;
+	private int enemyX, enemyY;
+	private int posX, posY;
 	public double xSpeed, ySpeed;
 	public double enemySpeed = 7.0;
 	private double targetX, targetY;
 	private boolean moving = false;
-	private int weightedMap[][]= {
-			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-	};//will be used to find shortest path
-	
-
+	private String prev; // keeps the direction the enemy came in so it can't turn back
 
 
 
@@ -42,8 +30,10 @@ public class Enemy {
 		}
 		enemyX = 9;
 		enemyY = 8;
-		xSpeed = xs;
-		ySpeed = ys;
+		xSpeed = 0;
+		ySpeed = 0;
+		posX = enemyX*60;
+		posY = enemyY*60;
 		targetX=-60;
 		targetY=-60;
 
@@ -84,23 +74,101 @@ public class Enemy {
 				
 	}
 	
-	
-	
-	public void move(int playerX, int playerY, int map[][], int weightedMap[][] ) {
-		//make a call to find shortest path
-		shortestPath(weightedMap[][],map[playerX][playerY]);
-
-				
-	}
 	*/
-	//Search and move ends here
 	
+	
+	public void move(double xs, double ys) {
+		enemyX+=xs;
+		enemyY+=ys;
+		System.out.println(xs);
+		System.out.println(ys);
+		if (xs!= 0) {
+		if (enemyX + xs >= 0 && enemyX + xs <= 9) {
+			xSpeed = xs*4;
+			targetX = (enemyX)*60;
+			moving = true;
+		}
+		}
+		if (ys!= 0) {
+		if (enemyY + ys >= 0 && enemyY + ys <= 9) {
+			ySpeed = ys*4;
+			targetY = (enemyY)*60;
+			moving = true;
+		}
+		}
+		
+	}
+	//Search and move ends here
+	public void track(int map[][]) {
+		int up;
+		int down;
+		int left;
+		int right;
+		if (enemyY>=1) {
+			up = map[enemyX][enemyY - 1];
+		}else {
+			up = 10000;
+		}
+		if (enemyY<=8) {
+			down = map[enemyX][enemyY + 1];
+		}else {
+			down = 10000;
+		}
+		if (enemyX >=1) {
+			left = map[enemyX - 1][enemyY];
+		}else {
+			left = 10000;
+		}
+		if (enemyX<=8) {
+			right = map[enemyX + 1][enemyY];
+		}else {
+			right = 10000;
+		}
+		String shortest = smallest(up,down,left,right);
+			
+		switch(shortest) {
+		case("up"):
+			move(0,-1);
+			prev = "down";
+		break;
+		case("down"):
+			move(0,1);
+			prev = "up";
+		break;
+		case("left"):
+			move(-1,0);
+			prev = "right";
+		break;
+		case("right"):
+			move(1,0);
+			prev = "left";
+		break;
+		default:
+			break;
+		}
+		System.out.println("UP: " + up + " DOWN: "+ down + " LEFT: "+left+" RIGHT: "+right);
+		System.out.println(shortest);
+		
+	}
+	private String smallest(int u ,int d , int l ,int r) {
+		String dir = "g";
+		int small = 10000;
+		if (u < small && prev!="up") {small = u; dir = "up";}
+		if (d < small && prev!="down") {small = d; dir = "down";}
+		if (l < small && prev!="left") {small = l; dir = "left";}
+		if (r < small && prev!="right") {small = r; dir = "right";}
+		return dir;
+	}
 	public void update() {
 		if (moving) {
-			enemyX += xSpeed;
-			enemyY += ySpeed;
+			posX += xSpeed;
+			posY += ySpeed;/*
+			System.out.println("Target X: " + targetX);
+			System.out.println("Target Y: " + targetY);
+			System.out.println("Enemy X: " + enemyX);
+			System.out.println("Enemy Y: " + enemyY);*/
 		}
-		if (enemyX == targetX || enemyY == targetY) {
+		if (posX == targetX || posY == targetY) {
 			
 			moving = false;
 			targetX=-60;
@@ -113,7 +181,7 @@ public class Enemy {
 
 	
 	public void drawMe(Graphics2D g2) {
-		g2.drawImage(enemyImg, enemyX*60, enemyY*60, 60, 60, null);
+		g2.drawImage(enemyImg, posX, posY, 60, 60, null);
 	}
 	
 	
@@ -132,11 +200,12 @@ public class Enemy {
 	public double getYSpeed(){
 		return ySpeed;
 	}
+	/*
 	public int[][] getWeightedMap() {
 		return weightedMap;
 	}
 	public void setWeightedMap(int[][] weightedMap) {
 		this.weightedMap = weightedMap;
 	}
-
+	*/
 }

@@ -13,7 +13,7 @@ public class Cell {
 	
 	// temporary map!!!! Insert new map here:
 	// 10x10 map, 0 is a wall; 1 is a tile
-	public int map[][] = {
+	private int map[][] = {
 			{ 0, 1, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 1, 1, 1, 1, 1, 0, 1, 0, 0 },
 			{ 0, 1, 1, 0, 1, 1, 1, 1, 1, 0 },
@@ -165,5 +165,9 @@ public class Cell {
 		}
 	
 	}
+	public int[][] getMap(){
+		return map;
+	}
+	
 	
 }
