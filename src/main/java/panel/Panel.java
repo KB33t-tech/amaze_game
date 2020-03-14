@@ -2,7 +2,6 @@ package panel;
 import java.awt.*;
 
 
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -18,7 +17,8 @@ import javax.swing.Timer;
 import board.Board;
 import board.Enemy;
 import board.Player;
-import others.Screen;
+import others.State;
+import others.ChangeState;
 import board.Cell;
 
 public class Panel extends JPanel implements ActionListener, KeyListener {
@@ -31,13 +31,15 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	
 	
 	private JFrame frame;
-	private JButton playButton, insButton, gobackButton, exitButton, replayButton;
+	public static JButton playButton, insButton, gobackButton, exitButton, replayButton;
 	
-	private Screen screen;
 	private Player player;
 	private Enemy enemy;
-	private Board board;
+//	private Board board;
 	private Cell cell;
+	
+	private ChangeState cs;
+	private String stateStr;
 	
 	private int tickCount;
 	private boolean replay, exit;
@@ -51,11 +53,6 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	private final static int RIGHT = 3;
 	private int direction;
 	
-	private final static int START_SCREEN = -1;
-	private final static int INSTRUCTION = 0;
-	private final static int GAME = 1;
-	private final static int WIN = 2;
-	private final static int LOSE = 3;
 	private final static int TICK = 30;
 	private int weightedMap[][]= {
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -70,9 +67,6 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	};
 
-	// set initial state of the game
-	public static int state = START_SCREEN;
-
 	
 	public Panel(JFrame frame) throws IOException {
 		super();
@@ -81,9 +75,11 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		setPreferredSize(new Dimension(WIN_W, WIN_H));
 		
 		direction = -1;
+		
+		stateStr = "START_SCREEN";	// set initial state of the game
+		cs = new ChangeState();
 
-		screen = new Screen();
-		board = makeBoard();
+//		board = makeBoard();
 		player = new Player();
 		enemy = spawnEnemy();
 		cell = new Cell();
@@ -142,68 +138,27 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	public Enemy spawnEnemy() {
 		return new Enemy(WIN_W-60, WIN_H-230, 0, 0);
 	}
-	
+
+	/*
 	//Loads the board
 	public Board makeBoard() {
 		return new Board();
 	}
-	
+	*/
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		
-		// if game state is at start screen
-		if (state == START_SCREEN){
-			screen.drawCover(g2);		
-			
-			playButton.setVisible(true);
-			insButton.setVisible(true);
-			gobackButton.setVisible(false);
-			exitButton.setVisible(false);
-			replayButton.setVisible(false);
-			timer.setDelay(150);
-		}
 		
-		// if game state is at in-game
-		if (state == GAME){
-			board.drawMe(g2);
-			player.drawMe(g2);
-			enemy.drawMe(g2);
+		cs.getState(g2, State.valueOf(stateStr));
+		
+		
+		//Detects if player and moving enemy touch
+		if(player.getPlayerX() == enemy.getEnemyX() && player.getPlayerY() == enemy.getEnemyY()) {
+			stateStr = "LOSE";
+		}
 
-			playButton.setVisible(false);
-			insButton.setVisible(false);
-			gobackButton.setVisible(false);
-			exitButton.setVisible(true);
-			replayButton.setVisible(false);
-			timer.setDelay(30);
-			
-			//Detects if player and moving enemy touch
-			if(player.getPlayerX() == enemy.getEnemyX() && player.getPlayerY() == enemy.getEnemyY()) {
-				state = LOSE;
-			}
-		}
-		
-		// if game state is at instruction
-		if (state == INSTRUCTION) {
-			screen.drawInstruction(g2);
-			
-			playButton.setVisible(false);
-			insButton.setVisible(false);
-			gobackButton.setVisible(true);
-			exitButton.setVisible(false);
-			replayButton.setVisible(false);
-		}
-		
-		if (state == LOSE) {
-			screen.drawLose(g2);
-			
-			playButton.setVisible(false);
-			insButton.setVisible(false);
-			gobackButton.setVisible(false);
-			exitButton.setVisible(false);
-			replayButton.setVisible(true);
-		}
 	}
 
 
@@ -298,33 +253,29 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 
 	public void actionPerformed(ActionEvent e) {
 		tickCount ++;
-		// if "Play" button is pressed at the start screen, 
-		// change game state to GAME
-		if (e.getActionCommand() == "Play" && state == START_SCREEN) 
-			state = GAME;	
 		
-		// if "Instruction" button is pressed at the start screen, 
-		// change game state to INSTRUCTION
-		if (e.getActionCommand() == "Instruction" && state == START_SCREEN) 
-			state = INSTRUCTION;	
+		// if "Play" button is pressed at the start screen, change game state to GAME
+		if (e.getActionCommand() == "Play") 
+			stateStr = "GAME";
 		
-		// if "Go back" button is pressed at the instruction screen, 
-		// exit and change game state to START SCREEN
-		if (e.getActionCommand() == "Go back" && state == INSTRUCTION) 
-			state = START_SCREEN;
+		// if "Instruction" button is pressed at the start screen, change game state to INSTRUCTION
+		if (e.getActionCommand() == "Instruction") 
+			stateStr = "INSTRUCTION";
 		
-		// if "Exit" button is pressed during the game, 
-		// exit and change game state to START SCREEN
-		if (e.getActionCommand() == "Exit" && state == GAME) {
-			state = START_SCREEN;
+		// if "Go back" button is pressed at the instruction screen, change game state to START_SCREEN
+		if (e.getActionCommand() == "Go back") 
+			stateStr = "START_SCREEN";
+		
+		// if "Exit" button is pressed during the game, exit the game
+		if (e.getActionCommand() == "Exit") {
+			stateStr = "START_SCREEN";
 			exit = true;
 		}
-			
 		
-		if (e.getActionCommand() == "Replay") {
-			state = START_SCREEN;
-			replay = true;
-		}
+//		if (e.getActionCommand() == "Replay") {
+//			stateStr = "START_SCREEN";
+//			replay = true;
+//		}
 			
 		
 		
@@ -339,6 +290,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 					weightedMap[i][j] = 10000;
 				}
 			}	
+			
 			player.beacon(weightedMap, cell.getMap(),player.getPlayerX(),player.getPlayerY(),0);
 			enemy.track(weightedMap);
 			
@@ -373,12 +325,14 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 			tickCount = 0;
 			direction = -1;
 		}
+		
 		player.update();
 		enemy.update();
 	
 		repaint();
 		
-		if(replay || exit){
+		/*
+		if(replay){
 			frame.dispose();
 			try {
 				frame = new Frame("276-game-project");
@@ -387,6 +341,12 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 			}
 			
 			replay = false;
+//			exit = false;
+		}
+		*/
+		
+		if(exit) {
+			frame.dispose();
 			exit = false;
 		}
 	}

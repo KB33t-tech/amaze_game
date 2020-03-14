@@ -41,4 +41,8 @@ public class Screen{
 		g2.drawImage(loseImg, 0, 0, 600, 700, null);
 	}
 	
+	public void drawWin(Graphics2D g2) {
+//		g2.drawImage(loseImg, 0, 0, 600, 700, null);
+	}
+	
 }

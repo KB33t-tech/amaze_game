@@ -11,9 +11,9 @@ import panel.Panel;
 
 public class Enemy {
 	
-	private BufferedImage enemyImg;
+	private static BufferedImage enemyImg;
 	private int enemyX, enemyY;
-	private int posX, posY;
+	private static int posX, posY;
 	public double xSpeed, ySpeed;
 	public double enemySpeed = 7.0;
 	private double targetX, targetY;
@@ -180,7 +180,7 @@ public class Enemy {
 	
 
 	
-	public void drawMe(Graphics2D g2) {
+	public static void drawMe(Graphics2D g2) {
 		g2.drawImage(enemyImg, posX, posY, 60, 60, null);
 	}
 	

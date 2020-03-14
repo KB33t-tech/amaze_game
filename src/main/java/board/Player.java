@@ -11,10 +11,10 @@ import board.Cell;
 
 public class Player{
 	
-	private BufferedImage playerImg;
+	private static BufferedImage playerImg;
 	private static int playerX, playerY;
 	private double xSpeed, ySpeed;
-	private int posX, posY; //to be used for drawing animation
+	private static int posX, posY; //to be used for drawing animation
 
 	private boolean moving;
 	private double targetX, targetY; // to be replaced with coordinates of cells
@@ -108,7 +108,7 @@ public class Player{
 		}
 	}
 	
-	public void drawMe(Graphics2D g2) {
+	public static void drawMe(Graphics2D g2) {
 		g2.drawImage(playerImg, posX, posY, 60, 60, null);
 	}
 	
