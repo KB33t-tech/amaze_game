@@ -2,11 +2,11 @@ package board;
 
 import java.awt.Color;
 
-
-
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import board.Reward;
+import panel.Panel;
+import board.Bonus;
 import board.Punishment;
 
 public class Cell {
@@ -19,7 +19,7 @@ public class Cell {
 			{ 0, 1, 1, 0, 1, 1, 1, 1, 1, 0 },
 			{ 0, 1, 0, 0, 0, 1, 0, 1, 1, 0 },
 			{ 0, 1, 1, 0, 1, 1, 1, 0, 1, 0 },
-			{ 0, 1, 1, 1, 0, 1, 0, 1, 1, 0 },
+			{ 0, 1, 1, 1, 0, 1, 1, 1, 1, 0 },
 			{ 0, 1, 0, 1, 1, 1, 0, 1, 0, 0 },
 			{ 0, 1, 1, 0, 1, 0, 1, 1, 1, 0 },
 			{ 0, 0, 1, 1, 1, 1, 1, 0, 1, 0 },
@@ -33,7 +33,7 @@ public class Cell {
 			{ 0, 1, 1, 0, 1, 1, 1, 1, 1, 0 },
 			{ 0, 1, 0, 0, 0, 1, 0, 1, 1, 0 },
 			{ 0, 1, 1, 0, 1, 1, 1, 0, 0, 0 },
-			{ 0, 0, 1, 1, 0, 1, 0, 1, 1, 0 },
+			{ 0, 1, 1, 1, 0, 1, 1, 1, 1, 0 },
 			{ 0, 1, 0, 1, 1, 1, 0, 1, 0, 0 },
 			{ 0, 1, 1, 0, 1, 0, 1, 1, 1, 0 },
 			{ 0, 0, 1, 1, 1, 1, 1, 0, 1, 0 },
@@ -45,10 +45,14 @@ public class Cell {
 			
 	// create an arrayList of punishments
 	private ArrayList <Punishment> punishment = new ArrayList<Punishment>();
+	
+	// create an arrayList of bonus
+	private ArrayList <Bonus> bonus = new ArrayList<Bonus>();
 		
 	// set the number of regular reward and punishment
 	private int rewardNum = 0;
 	private int punishmentNum = 0;
+	private int bonusNum = 0;
 	
 	// holds the random position for each reward and punishment
 	private int randomX, randomY;
@@ -56,6 +60,7 @@ public class Cell {
 	// each cell size is 60px
 	public int cellSize;
 	
+	private int bonusTick = 0;
 	
 	public Cell() {
 		cellSize = 60;
@@ -63,7 +68,7 @@ public class Cell {
 	
 		// randomly generates the position for each regular reward, 
 		// and change the value of that cell to 99 to indicate that it contains a regular reward
-		// a total of 12 regular rewards will be generated (can be any number)
+		// a total of 15 regular rewards will be generated (can be any number)
 		for (int i = 0; rewardNum < 15; i++){
 			randomX = (int)Item.random(1, 9);
 			randomY = (int)Item.random(1, 9);		
@@ -80,7 +85,7 @@ public class Cell {
 		
 		// randomly generates the position for each punishment
 		// and change the value of that cell to 5 to indicate that it contains a regular reward
-		// a total of 4 regular rewards will be generated (can be any number)
+		// a total of 3 regular rewards will be generated (can be any number)
 		for (int i = 0; punishmentNum < 3; i++){
 			randomX = (int)Item.random(1, 9);
 			randomY = (int)Item.random(1, 9);		
@@ -163,7 +168,48 @@ public class Cell {
 				item_map[Player.getPlayerX()][Player.getPlayerY()] = 1;
 			}
 		}
-	
+		
+
+		bonusTick++;
+//		System.out.println(bonusTick);
+		
+		// controls the bonus
+		for (int i = 0; bonusNum < 1; i++){
+			randomX = (int)Item.random(1, 9);
+			randomY = (int)Item.random(1, 9);		
+			
+			if(randomY != 8 && item_map[randomX][randomY] != 0 && 
+					item_map[randomX][randomY] != 99 && item_map[randomX][randomY] != 5) {
+				bonusNum+=1;
+				bonus.add(new Bonus (randomX, randomY));
+			}
+		}
+		
+		if(bonusTick < Panel.TICK*30) {		// appear for 40 ticks
+			for (int i = 0; i < bonus.size(); i++){
+				Bonus bonusi = bonus.get(i);
+				
+				bonusi.drawMe(g2);
+				
+				if(bonusi.detectCollision(Player.getPlayerX(), Player.getPlayerY(), bonusi.bonusX, bonusi.bonusY)) {
+					//bonusi.changeScore(score);
+					bonus.remove(bonusi);
+					bonusTick = Panel.TICK*30;
+				}
+			}
+		}
+		
+		if(bonusTick >= Panel.TICK*40) {	// disappear for 10 ticks
+			for (int i = 0; i < bonus.size(); i++){
+				Bonus bonusi = bonus.get(i);
+				bonus.remove(bonusi);
+			}
+
+			bonusTick = 0;
+			bonusNum = 0;
+		}
+		
+		
 	}
 	public int[][] getMap(){
 		return map;

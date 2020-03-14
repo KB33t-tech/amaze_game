@@ -2,6 +2,8 @@ package others;
 
 import java.awt.Graphics2D;
 
+import javax.swing.JButton;
+
 import board.Board;
 import board.Enemy;
 import board.Player;
@@ -19,6 +21,7 @@ public class ChangeState {
 		
 		screen = new Screen();
 		board = makeBoard();
+
 	}
 	
 	
@@ -44,6 +47,7 @@ public class ChangeState {
 		
 			case INSTRUCTION:
 				screen.drawInstruction(g2);
+				
 				Panel.playButton.setVisible(false);
 				Panel.insButton.setVisible(false);
 				Panel.gobackButton.setVisible(true);

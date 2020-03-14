@@ -53,7 +53,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	private final static int RIGHT = 3;
 	private int direction;
 	
-	private final static int TICK = 30;
+	public final static int TICK = 30;
 	private int weightedMap[][]= {
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -252,8 +252,9 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 
 
 	public void actionPerformed(ActionEvent e) {
-		tickCount ++;
 		
+		tickCount ++;
+//		System.out.println(tickCount);
 		// if "Play" button is pressed at the start screen, change game state to GAME
 		if (e.getActionCommand() == "Play") 
 			stateStr = "GAME";

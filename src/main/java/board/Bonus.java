@@ -2,6 +2,9 @@ package board;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class Bonus extends Item{
 	
@@ -13,6 +16,11 @@ public class Bonus extends Item{
 		bonusX = xPos;
 		bonusY = yPos;
 		
+		try {
+			bonusImg = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("Bonus.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -22,6 +30,7 @@ public class Bonus extends Item{
 
 	@Override
 	protected int changeScore(int score) {
+		score += 30;	//temporary amount
 		
 		return score;
 	}
