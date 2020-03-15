@@ -120,12 +120,4 @@ public class Player{
 	public static int getPlayerY() {
 		return playerY;
 	}
-	
-	public double getXSpeed(){
-		return xSpeed;
-	}
-	
-	public double getYSpeed(){
-		return ySpeed;
-	}
 }

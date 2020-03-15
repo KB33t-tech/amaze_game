@@ -13,7 +13,7 @@ import others.Screen;
 
 public class ChangeState {
 	
-	State state;	
+//	State state;	
 	private Screen screen;
 	private Board board;
 	
@@ -26,7 +26,7 @@ public class ChangeState {
 	
 	
 	//Loads the board
-	public Board makeBoard() {
+	private Board makeBoard() {
 		return new Board();
 	}
 	

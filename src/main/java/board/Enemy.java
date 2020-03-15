@@ -193,13 +193,6 @@ public class Enemy {
 		return enemyY;
 	}
 	
-	public double getXSpeed(){
-		return xSpeed;
-	}
-	
-	public double getYSpeed(){
-		return ySpeed;
-	}
 	/*
 	public int[][] getWeightedMap() {
 		return weightedMap;

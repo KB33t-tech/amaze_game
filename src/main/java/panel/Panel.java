@@ -2,6 +2,8 @@ package panel;
 import java.awt.*;
 
 
+
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -17,9 +19,9 @@ import javax.swing.Timer;
 import board.Board;
 import board.Enemy;
 import board.Player;
-import others.State;
 import others.ChangeState;
 import board.Cell;
+import others.State;
 
 public class Panel extends JPanel implements ActionListener, KeyListener {
 	
@@ -115,7 +117,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		
 		gobackButton = new JButton("Go back");
 		this.add(gobackButton);
-		gobackButton.setBounds(WIN_W/2-40, 600, 80, 30);
+		gobackButton.setBounds(WIN_W/2-40, 650, 80, 30);
 		gobackButton.setVisible(false);
 		gobackButton.addActionListener(this);
 		
