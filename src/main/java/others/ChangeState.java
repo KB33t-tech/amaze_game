@@ -71,7 +71,7 @@ public class ChangeState {
 			 
 			case LOSE:
 				screen.drawLose(g2);
-				
+
 				Panel.playButton.setVisible(false);
 				Panel.insButton.setVisible(false);
 				Panel.gobackButton.setVisible(false);
@@ -82,6 +82,8 @@ public class ChangeState {
 			 
 			case WIN:
 				screen.drawWin(g2);
+				board.displayScore(g2, Panel.WIN_W/2-80, Panel.BOARD_H/2);
+				
 				Panel.exitButton.setVisible(false);
 //				System.out.println("In state WIN");
 				break;

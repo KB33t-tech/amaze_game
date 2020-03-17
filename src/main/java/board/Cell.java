@@ -75,7 +75,7 @@ public class Cell {
 		// randomly generates the position for each regular reward, 
 		// and change the value of that cell to 99 to indicate that it contains a regular reward
 		// a total of 15 regular rewards will be generated (can be any number)
-		for (int i = 0; rewardNum < 5; i++){
+		for (int i = 0; rewardNum < 15; i++){
 			randomX = (int)Item.random(1, 9);
 			randomY = (int)Item.random(1, 9);		
 			

@@ -26,7 +26,7 @@ public class Board {
 		}
 		
 		cell = new Cell();
-		scoreText = new Font("Courier New", Font.PLAIN | Font.ROMAN_BASELINE, 18);
+		scoreText = new Font("Courier New", Font.PLAIN | Font.ROMAN_BASELINE, 25);
 	}
 	
 	// draw the board
@@ -40,13 +40,13 @@ public class Board {
 		cell.detectWin();
 		
 		// display score
-		displayScore(g2);
+		displayScore(g2, 400, 650);
 	}
 	
 	// display score
-	public void displayScore(Graphics2D g2) {
+	public void displayScore(Graphics2D g2, int x, int y) {
 		g2.setColor(Color.white);
 		g2.setFont(scoreText);
-		g2.drawString("Score: " + cell.updateScore(), 400, 650);
+		g2.drawString("Score: " + cell.updateScore(), x, y);
 	}
 }
