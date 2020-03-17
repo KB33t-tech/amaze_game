@@ -128,11 +128,10 @@ public class Cell {
 		}
 		
 		
-		
-//		if(Player.getPlayerX() != 0) {
-//			map[0][1] = 0;
-//		}
-		
+		// turn the start point into a wall once Player left the start cell
+		if(Player.getPlayerX() > 0) {
+			map[0][1] = 0;
+		}
 		
 		
 		// controls the regular rewards

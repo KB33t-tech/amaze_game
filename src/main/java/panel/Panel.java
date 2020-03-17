@@ -4,6 +4,7 @@ import java.awt.*;
 
 
 
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -216,7 +217,8 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		for(int i = 0; i < cell.getMap().length; i++){
 			for(int j = 0; j < cell.getMap()[i].length; j++){
 							
-				if(cell.getMap()[player.getPlayerX() - 1][player.getPlayerY()] == 0) {
+				if(cell.getMap()[player.getPlayerX() - 1][player.getPlayerY()] == 0 ||
+						(player.getPlayerX() == 1) && player.getPlayerY() == 1) {
 //					System.out.println((player.getPlayerX()+1) + " " + player.getPlayerY());
 					direction = -1;
 				}				

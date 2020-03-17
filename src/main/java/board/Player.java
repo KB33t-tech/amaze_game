@@ -103,6 +103,7 @@ public class Player{
 			posX += xSpeed;
 			posY += ySpeed;
 		}
+		
 		if (posX == targetX || posY == targetY) {
 			
 			moving = false;
@@ -111,10 +112,13 @@ public class Player{
 			xSpeed = 0;
 			ySpeed = 0;
 		}
+		
 	}
 	
 	public static void drawMe(Graphics2D g2) {
+		
 		g2.drawImage(playerImg, posX, posY, 60, 60, null);
+
 	}
 	
 	
