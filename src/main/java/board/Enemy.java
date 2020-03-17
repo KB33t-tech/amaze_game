@@ -9,19 +9,41 @@ import javax.imageio.ImageIO;
 
 import panel.Panel;
 
+/**
+ * This class holds the properties of Moving Enemy and draws Moving Enemy. 
+ */
 public class Enemy {
 	
+	// Moving Enemy is displayed as a bufferedImage named "enemyImg"
 	private static BufferedImage enemyImg;
+	
+	// the x-coordinate and the y-coordinate of Moving Enemy
 	private int enemyX, enemyY;
-	private static int posX, posY;
+	
+	// the x-speed and the y-speed of Moving Enemy
 	public double xSpeed, ySpeed;
-	public double enemySpeed = 7.0;
+	
+	// to be used for drawing animation
+	private static int posX, posY;
+	
+	// Player stops moving once reached the target coordinates
 	private double targetX, targetY;
+	
+	// flag that controls when Player should be moving
 	private boolean moving = false;
-	private String prev; // keeps the direction the enemy came in so it can't turn back
+	
+	 // keeps the direction the enemy came in so it can't turn back
+	private String prev;
 
-
-
+	
+	/**
+	 * The constructor loads an image to {@link #enemyImg}.
+	 * It also sets the initial location and speed of Moving Enemy.
+	 * @param xPos 		x-coordinate of Moving Enemy
+	 * @param yPos		y-coordinate of Moving Enemy
+	 * @param xs		x-speed of Moving Enemy
+	 * @param ys		y-speed of Moving Enemy
+	 */
 	public Enemy(int xPos, int yPos, double xs, double ys) {
 		try {
 			enemyImg = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("Enemy.png"));
@@ -76,29 +98,37 @@ public class Enemy {
 	
 	*/
 	
-	
+	/**
+	 * This method controls the movement of Moving Enemy.
+	 * @param xs	x-speed that Moving Enemy is moving at
+	 * @param ys	y-speed that Moving Enemy is moving at
+	 */
 	public void move(double xs, double ys) {
 		enemyX+=xs;
 		enemyY+=ys;
 		System.out.println(xs);
 		System.out.println(ys);
 		if (xs!= 0) {
-		if (enemyX + xs >= 0 && enemyX + xs <= 9) {
-			xSpeed = xs*4;
-			targetX = (enemyX)*60;
-			moving = true;
-		}
+			if (enemyX + xs >= 0 && enemyX + xs <= 9) {
+				xSpeed = xs*4;
+				targetX = (enemyX)*60;
+				moving = true;
+			}
 		}
 		if (ys!= 0) {
-		if (enemyY + ys >= 0 && enemyY + ys <= 9) {
-			ySpeed = ys*4;
-			targetY = (enemyY)*60;
-			moving = true;
-		}
+			if (enemyY + ys >= 0 && enemyY + ys <= 9) {
+				ySpeed = ys*4;
+				targetY = (enemyY)*60;
+				moving = true;
+			}
 		}
 		
 	}
-	//Search and move ends here
+	
+	/**
+	 * search and move ends here
+	 * @param map
+	 */
 	public void track(int map[][]) {
 		int up;
 		int down;
@@ -150,6 +180,15 @@ public class Enemy {
 		System.out.println(shortest);
 		
 	}
+	
+	/**
+	 * 
+	 * @param u
+	 * @param d
+	 * @param l
+	 * @param r
+	 * @return
+	 */
 	private String smallest(int u ,int d , int l ,int r) {
 		String dir = "g";
 		int small = 10000;
@@ -159,6 +198,10 @@ public class Enemy {
 		if (r < small && prev!="right") {small = r; dir = "right";}
 		return dir;
 	}
+	
+	/**
+	 * This method detects whether Moving Enemy has moved to the desired position and should stop moving if so.
+	 */
 	public void update() {
 		if (moving) {
 			posX += xSpeed;
@@ -178,17 +221,26 @@ public class Enemy {
 		}
 	}
 	
-
-	
+	/**
+	 * This method displays Moving Screen on the screen with specified location and size.
+	 * @param g2 	Java's Graphics2D drawing tool
+	 */
 	public static void drawMe(Graphics2D g2) {
 		g2.drawImage(enemyImg, posX, posY, 60, 60, null);
 	}
 	
-	
+	/**
+	 * This method is a getter for Moving Enemy's x-coordinate.
+	 * @return   x-coordinate of Moving Enemy
+	 */
 	public int getEnemyX() {
 		return enemyX;
 	}
 
+	/**
+	 * This method is a getter for Moving Enemy's y-coordinate.
+	 * @return   y-coordinate of Moving Enemy
+	 */
 	public int getEnemyY() {
 		return enemyY;
 	}

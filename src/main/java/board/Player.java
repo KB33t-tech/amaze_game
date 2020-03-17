@@ -10,16 +10,33 @@ import javax.imageio.ImageIO;
 import panel.Panel;
 import board.Cell;
 
+/**
+ * This class holds the properties of Player and draws Player. 
+ */
 public class Player{
 	
+	// Player is displayed as a bufferedImage named "playerImg"
 	private static BufferedImage playerImg;
-	private static int playerX, playerY;
-	private double xSpeed, ySpeed;
-	private static int posX, posY; //to be used for drawing animation
-
-	private boolean moving;
-	private double targetX, targetY; // to be replaced with coordinates of cells
 	
+	// the x-coordinate and the y-coordinate of Player
+	private static int playerX, playerY;
+	
+	// the x-speed and the y-speed of Player
+	private double xSpeed, ySpeed;
+	
+	// to be used for drawing animation
+	private static int posX, posY; 
+
+	// flag that controls when Player should be moving
+	private boolean moving;
+	
+	// Player stops moving once reached the target coordinates
+	private double targetX, targetY; 
+	
+	/**
+	 * The constructor loads an image to {@link #playerImg}.
+	 * It also sets up the initial position and speed of Player.
+	 */
 	public Player() {
 		try {
 			playerImg = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("Player.png"));
@@ -37,6 +54,12 @@ public class Player{
 		targetY=-60;
 	}
 	
+	/**
+	 * This method controls the movement of Player.
+	 * It is called every time the user presses an arrow key.
+	 * @param xs  	x-speed that Player is moving at
+	 * @param ys	y-speed that Player is moving at
+	 */
 	public void move(double xs, double ys) {
 		playerX+=xs;
 		playerY+=ys;
@@ -49,17 +72,18 @@ public class Player{
 			}
 		}
 
-		
-		
 		if (ys!= 0) {
-		if (playerY + ys >= 0 && playerY + ys <= 10) {
-			ySpeed = ys*4;
-			targetY = (playerY)*60;
-			moving = true;
+			if (playerY + ys >= 0 && playerY + ys <= 10) {
+				ySpeed = ys*4;
+				targetY = (playerY)*60;
+				moving = true;
+			}
 		}
-		}
-		
 	}
+	
+	/**
+	 * This method calculates the distance between Player and Moving Enemy.
+	 */
 	public void beacon( int wMap[][], int map[][],int x, int y, int count) { // every tick the player will update the weighted map to show the
 		/*for (int i=0;i<10;i++) {					 // shortest path to it
 			for(int j=0;j<10;j++) {
@@ -98,6 +122,10 @@ public class Player{
 		}
 		
 	}
+	
+	/**
+	 * This method detects whether Player has moved to the desired position and should stop moving if so.
+	 */
 	public void update() {
 		if (moving) {
 			posX += xSpeed;
@@ -112,20 +140,29 @@ public class Player{
 			xSpeed = 0;
 			ySpeed = 0;
 		}
-		
 	}
 	
+	/**
+	 * This method displays Player on the screen with specified location and size.
+	 * @param g2 	Java's Graphics2D drawing tool
+	 */
 	public static void drawMe(Graphics2D g2) {
 		
 		g2.drawImage(playerImg, posX, posY, 60, 60, null);
-
 	}
 	
-	
+	/**
+	 * This method is a getter for Player's x-coordinate.
+	 * @return   x-coordinate of Player
+	 */
 	public static int getPlayerX() {
 		return playerX;
 	}
 
+	/**
+	 * This method is a getter for Player's y-coordinate.
+	 * @return   y-coordinate of Player
+	 */
 	public static int getPlayerY() {
 		return playerY;
 	}

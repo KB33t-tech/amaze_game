@@ -2,16 +2,39 @@ package board;
 
 import java.awt.Graphics2D;
 
-// to be extended by Reward and Punishment classes
+/**
+ * It is a superclass of {@link Reward}, {@link Punishment}, {@link Bonus}.
+ * @see Reward
+ * @see Punishment
+ * @see Bonus
+ */
 public abstract class Item {
 	
-	// draws the reward and punishment
+	/**
+	 * This abstract method lets Reward, Punishment, and Bonus classes draw their corresponding images.
+	 * @param g2  Java's Graphics2D drawing tool
+	 */
 	protected abstract void drawMe(Graphics2D g2);
 	
-	// changes the score when Player collects rewards or moves into punishments
+	/**
+	 * This abstract method changes the score when Player collects rewards and bonuses.
+	 * or when Player moves into punishments
+	 * @param score  current score that is to be updated
+	 * @return       the new updated score
+	 */
 	protected abstract int changeScore(int score);
 	
-	// detects collision between 1) Player and rewards; 2) Player and punishments
+	/**
+	 * This is a boolean function that detects the collision between 
+	 * 1) Player and rewards
+	 * 2) Player and punishments
+	 * 3) Player and bonuses.
+	 * @param a  x-coordinate of {@link Player}
+	 * @param b	 y-coordinate of {@link Player}
+	 * @param x  x-coordinate of {@link Reward}, {@link Punishment}, or {@link Bonus}
+	 * @param y  y-coordinate of {@link Reward}, {@link Punishment}, or {@link Bonus}
+	 * @return   true if collision happened, false otherwise
+	 */
 	public boolean detectCollision(int a, int b, int x, int y) {
 		if ((a == x) && (b == y)) {
 			return true;
@@ -20,7 +43,13 @@ public abstract class Item {
 		}
 	}
 	
-	// random function that randomly generates an item's position
+	/**
+	 * This is a random method that randomly generates 
+	 * the position of each item {@link Reward}, {@link Punishment}, and {@link Bonus}.
+	 * @param low   the lowest number (left-most position/top-most position) that the function can generate
+	 * @param high  the highest number (right-most position/bottom-most position) that the function can generate
+	 * @return      position of the item
+	 */
 	public static double random(double low, double high) {
 		return low + Math.random() * (high - low);
 	}
