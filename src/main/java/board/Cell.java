@@ -109,14 +109,16 @@ public class Cell {
 	
 	
 	public void drawMap(Graphics2D g2) {
-			
+	
+		
 		try{
 			for(int i = 0; i < map.length; i++){
 				for(int j = 0; j < map[i].length; j++){
 					if(map[i][j] == 0) {
 						
 						// draw temporary walls 
-						g2.setColor(Color.black);
+//						g2.setColor(Color.black);
+						g2.setColor(new Color(0, 0, 0, 85));
 						g2.fillRect(i*cellSize, j*cellSize, cellSize, cellSize);
 					}
 				}
