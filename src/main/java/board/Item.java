@@ -26,9 +26,9 @@ public abstract class Item {
 	
 	/**
 	 * This is a boolean function that detects the collision between 
-	 * 1) Player and rewards
+	 * 1) Player and regular rewards
 	 * 2) Player and punishments
-	 * 3) Player and bonuses.
+	 * 3) Player and bonus rewards.
 	 * @param a  x-coordinate of {@link Player}
 	 * @param b	 y-coordinate of {@link Player}
 	 * @param x  x-coordinate of {@link Reward}, {@link Punishment}, or {@link Bonus}

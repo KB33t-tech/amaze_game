@@ -10,6 +10,10 @@ import javax.print.DocFlavor.URL;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+/**
+ * This class extends {@link JFrame}.
+ * Is creates a Panel object and adds it to he JFrame window.
+ */
 public class Frame extends JFrame{
 	
 	public Frame(String title) throws IOException {
@@ -24,14 +28,16 @@ public class Frame extends JFrame{
 		this.setLocationRelativeTo(null);
 	}
 
+	/**
+	 * This is the main method.
+	 * @param args
+	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					Frame app = new Frame("276-game-project");
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} 
 			}

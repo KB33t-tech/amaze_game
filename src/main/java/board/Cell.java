@@ -272,7 +272,7 @@ public class Cell {
 				
 		// check if all regular rewards have been collected and if Player is on the exit cell
 		// change the game state to "WIN"
-		if(reward.size() == 0 && score >= 0 && Player.getPlayerX() == 9 && Player.getPlayerY() == 8) {
+		if(reward.size() == 0 && Player.getPlayerX() == 9 && Player.getPlayerY() == 8) {
 			System.out.println("Done");
 			Panel.stateStr = "WIN";
 		}

@@ -24,39 +24,47 @@ import others.ChangeState;
 import board.Cell;
 import others.State;
 
+/**
+ * Everything in the game is drawn on this JPanel object and then added to the JFrame window.
+ * JPanel is like a piece of paper that gets added to the drawing board (JFrame).
+ * Therefore we can have several JPanel objects that draw different things, but for this game we only have one.
+ */
 public class Panel extends JPanel implements ActionListener, KeyListener {
 	
-	public final static int WIN_X = 0;
-	public final static int WIN_Y = 0;
-	public final static int WIN_W = 600;
-	public final static int WIN_H = 700;
-	public final static int BOARD_H = 600;
+	public final static int WIN_X = 0;	// x-coordinate of the window
+	public final static int WIN_Y = 0;	// y-coordinate of the window
+	public final static int WIN_W = 600;	// width of the window
+	public final static int WIN_H = 700;	// height of the window
+	public final static int BOARD_H = 600;	// height of the board (space where Player moves)
 	
+	private JFrame frame;	// a JFrame object
+	public static JButton playButton, insButton, gobackButton, exitButton, replayButton;	// different JButton objects
 	
-	private JFrame frame;
-	public static JButton playButton, insButton, gobackButton, exitButton, replayButton;
+	private Player player;	// a Player object
+	private Enemy enemy;	// a Moving Enemy object
+	private Cell cell;		// a Cell object
 	
-	private Player player;
-	private Enemy enemy;
-//	private Board board;
-	private Cell cell;
+	private ChangeState cs;	// a ChangeState object
+	public static String stateStr;	// string that stores the current state of the game
 	
-	private ChangeState cs;
-	public static String stateStr;
-	
-	private int tickCount;
-	private boolean replay, exit;
+	private int tickCount;	// keeps track of each TICK of the game
+	private boolean replay, exit;	// boolean that keeps track if replay or exit button is pressed
 	
 	private Timer timer;
 
-	// booleans that control the keyboard
+	// constants that control the keyboard
 	private final static int UP = 0;
 	private final static int DOWN = 1;
 	private final static int LEFT = 2;
 	private final static int RIGHT = 3;
-	private int direction;
 	
+	// direction is -1 if Player does not move, otherwise it is assigned to the above constants
+	private int direction;
+
+	// value of each TICK of the game
 	public final static int TICK = 30;
+	
+	// a weighted map for calculating the distance between Player and Moving Enemy
 	private int weightedMap[][]= {
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -71,25 +79,30 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	};
 
 	
+	/**
+	 * The constructor sets the initial state of JPanel.
+	 * @param frame 			Java's JFrame window
+	 * @throws IOException		if an input or output exception occurred
+	 */
 	public Panel(JFrame frame) throws IOException {
 		super();
 		
-		this.setBackground(Color.white);
-		setPreferredSize(new Dimension(WIN_W, WIN_H));
+		this.setBackground(Color.white);	// set the background colour of the window
+		setPreferredSize(new Dimension(WIN_W, WIN_H));	// set the size of the window
 		
-		direction = -1;
+		direction = -1;		// Player does not move when the game starts
 		
 		stateStr = "START_SCREEN";	// set initial state of the game
 		cs = new ChangeState();
 
-//		board = makeBoard();
 		player = new Player();
 		enemy = spawnEnemy();
 		cell = new Cell();
 
-		tickCount = 0;
+		tickCount = 0;	// each tick starts incrementing at 0
 		replay = false;
 		exit = false;
+		
 		timer = new Timer(30, this);
 		timer.start();
 		addKeyListener(this);
@@ -103,7 +116,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 			}
 		}
 		
-		// add buttons
+		// add JButtons buttons
 		playButton = new JButton("Play");
 		this.add(playButton);
 		playButton.setBounds(200, 630, 80, 30);
@@ -142,22 +155,20 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		return new Enemy(WIN_W-60, WIN_H-230, 0, 0);
 	}
 
-	/*
-	//Loads the board
-	public Board makeBoard() {
-		return new Board();
-	}
-	*/
+
+	/**
+	 * This method allows drawing on JPanel.
+	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		
-		
+		// switches the state of the game by passing the state string
+		// and draws according to the state
 		cs.getState(g2, State.valueOf(stateStr));
 
-		
-		//Detects if player and moving enemy touch
+		// detects if player and moving enemy touch
 		if(player.getPlayerX() == enemy.getEnemyX() && player.getPlayerY() == enemy.getEnemyY()) {
 			stateStr = "LOSE";
 		}
@@ -165,12 +176,17 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	}
 
 
+	/**
+	 * This is a method from KeyListener.
+	 */
 	public void keyTyped(KeyEvent e) {
-
 		
 	}
 
-
+	/**
+	 *  This is a method from KeyListener.
+	 *  It keeps track of which arrow key is pressed and assign the direction to Player according to the arrow key.
+	 */
 	public void keyPressed(KeyEvent e) {
 		
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT)
@@ -184,12 +200,20 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		
 	}
 
-
+	/**
+	 * This is a method from KeyListener.
+	 */
 	public void keyReleased(KeyEvent e) {
+		
 	}
 	
 	
-	// will try to make wall detection less repetitive
+	/**
+	 * This method detects whether the cell on Player's right is a wall.
+	 * If the cell is a wall, direction becomes -1 and Player cannot move.
+	 * Otherwise, direction becomes RIGHT and Player will move in the right direction.
+	 * @return		direction that Player will be moving in
+	 */
 	private int right_stop() {
 		
 		try {
@@ -212,11 +236,18 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		return direction;
 	}
 	
-	
+	/**
+	 * This method detects whether the cell on Player's left is a wall.
+	 * If the cell is a wall, direction becomes -1 and Player cannot move.
+	 * Otherwise, direction becomes LEFT and Player will move in the left direction.
+	 * @return		direction that Player will be moving in
+	 */
 	private int left_stop() {
 		for(int i = 0; i < cell.getMap().length; i++){
 			for(int j = 0; j < cell.getMap()[i].length; j++){
-							
+				
+				// once Player left the start cell by moving one cell to the right, 
+				// they also cannot move back to the start cell by pressing the left arrow key
 				if(cell.getMap()[player.getPlayerX() - 1][player.getPlayerY()] == 0 ||
 						(player.getPlayerX() == 1) && player.getPlayerY() == 1) {
 //					System.out.println((player.getPlayerX()+1) + " " + player.getPlayerY());
@@ -227,6 +258,12 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		return direction;
 	}
 	
+	/**
+	 * This method detects whether the cell above Player is a wall.
+	 * If the cell is a wall, direction becomes -1 and Player cannot move.
+	 * Otherwise, direction becomes UP and Player will move in the up direction.
+	 * @return		direction that Player will be moving in
+	 */
 	private int up_stop() {
 		for(int i = 0; i < cell.getMap().length; i++){
 			for(int j = 0; j < cell.getMap()[i].length; j++){
@@ -240,7 +277,12 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		return direction;
 	}
 	
-	
+	/**
+	 * This method detects whether the cell below Player is a wall.
+	 * If the cell is a wall, direction becomes -1 and Player cannot move.
+	 * Otherwise, direction becomes DOWN and Player will move in the down direction.
+	 * @return		direction that Player will be moving in
+	 */
 	private int down_stop() {
 		for(int i = 0; i < cell.getMap().length; i++){
 			for(int j = 0; j < cell.getMap()[i].length; j++){
@@ -255,10 +297,13 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	}
 
 
+	/**
+	 * This is a method from ActionListener.
+	 * This method detects which button is pressed and changes the state of the game according to the buttons.
+	 * It also controls the movement of Player and Moving Enemy in each TICK of the game.
+	 */
 	public void actionPerformed(ActionEvent e) {
 		
-		
-//		System.out.println(tickCount);
 		// if "Play" button is pressed at the start screen, change game state to GAME
 		if (e.getActionCommand() == "Play") 
 			stateStr = "GAME";
@@ -283,10 +328,12 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 //		}
 			
 		
+		// if the state of the game is "GAME"
 		if(stateStr == "GAME") {
 			
-			tickCount ++;
+			tickCount ++;	// increment tickCount
 			
+			// during each TICK of the game:
 			if (tickCount == TICK) {			//Changing TICK speeds up player
 				/** @author kevin
 				 * I'm trying to implement AI and player detection here but should probably 
@@ -300,47 +347,49 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 				}	
 				
 				player.beacon(weightedMap, cell.getMap(),player.getPlayerX(),player.getPlayerY(),0);
-				enemy.track(weightedMap);
+				enemy.track(weightedMap);	// Moving Enemy starts tracking Player
 				
 				if(player.getPlayerX() != 9) {	// prevents the player from going out of the screen when at the exit
-					if (direction == RIGHT) {
-						if(right_stop() != -1) {
-							player.move(1, 0);
+					if (direction == RIGHT) {	// if the right arrow key is pressed
+						if(right_stop() != -1) {	// if the right cell is not a wall
+							player.move(1, 0);	// move Player one cell to the right
 						}
 					}
 				}
 				
 				if(player.getPlayerX() != 0) {	// prevents the player from going out of the screen when at the start point
-					if (direction == LEFT) {
-						if(left_stop() != -1) {
-							player.move(-1, 0);
+					if (direction == LEFT) {	// if the left arrow key is pressed
+						if(left_stop() != -1) {		// if the left cell is not a wall
+							player.move(-1, 0);	// move Player one cell to the left
 						}	
 					}
 				
 				}
-				if(direction == UP) {
-					if(up_stop() != -1) {
-						player.move(0,-1);		
+				
+				if(direction == UP) {	// if the up arrow key is pressed
+					if(up_stop() != -1) {	// if the cell above is not a wall
+						player.move(0,-1);	// move Player one cell up
 					}
 				}
 				
-				if(direction == DOWN) {
-					if(down_stop() != -1) {
-						player.move(0, 1);
+				if(direction == DOWN) {		// if the down arrow key is pressed
+					if(down_stop() != -1) {		// if the cell below is not a wall
+						player.move(0, 1);	// move Player one cell down
 					}
 				}
 				
-				tickCount = 0;
-				direction = -1;
+				tickCount = 0;		// reset tickCount after each TICK
+				direction = -1;		// reset direction to -1 after Player is done moving one cell
 			}
 			
-			player.update();
-			enemy.update();
+			player.update();	// update the position of Moving Enemy
+			enemy.update();		// update the position of Player
 			
 		}
 	
 		
 		repaint();
+		
 		/*
 		if(replay){
 			frame.dispose();
@@ -355,6 +404,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		}
 		*/
 		
+		// if exit is pressed, dispose the JFrame window
 		if(exit) {
 			frame.dispose();
 			exit = false;
