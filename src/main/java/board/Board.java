@@ -1,5 +1,8 @@
 package board;
 
+import java.awt.Color;
+import java.awt.Font;
+
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -13,6 +16,7 @@ public class Board {
 	
 	private BufferedImage boardImg;
 	private Cell cell;
+	private Font scoreText;
 	
 	public Board(){
 		try {
@@ -22,7 +26,10 @@ public class Board {
 		}
 		
 		cell = new Cell();
+		scoreText = new Font("Courier New", Font.PLAIN | Font.ROMAN_BASELINE, 18);
 	}
+	
+	// draw the board
 	public void drawMe(Graphics2D g2) {
 		g2.drawImage(boardImg, 0, 0, Panel.WIN_W, Panel.WIN_H, null);
 		
@@ -31,5 +38,15 @@ public class Board {
 		
 		// detect if Player won
 		cell.detectWin();
+		
+		// display score
+		displayScore(g2);
+	}
+	
+	// display score
+	public void displayScore(Graphics2D g2) {
+		g2.setColor(Color.white);
+		g2.setFont(scoreText);
+		g2.drawString("Score: " + cell.updateScore(), 400, 650);
 	}
 }

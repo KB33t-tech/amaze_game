@@ -64,11 +64,12 @@ public class Cell {
 	// keeps track of bonus
 	private int bonusTick = 0;
 	
-	public boolean win = false;
+	private int score;
 	
 	
 	public Cell() {
 		cellSize = 60;
+		score = 0;
 		
 	
 		// randomly generates the position for each regular reward, 
@@ -144,7 +145,7 @@ public class Cell {
 				
 				// call the changeScore function to increase the score
 				// need to assign score variable to this function:
-				//rewardi.changeScore(score);
+				score = rewardi.changeScore(score);
 				
 				// remove the reward that Player touches
 				reward.remove(rewardi);
@@ -166,7 +167,7 @@ public class Cell {
 				
 				// call the changeScore function to decrease the score
 				// need to assign score variable to this function:
-				//punishmenti.changeScore(score);
+				score = punishmenti.changeScore(score);
 				
 				// remove the punishment that Player touches
 				punishment.remove(punishmenti);
@@ -199,7 +200,7 @@ public class Cell {
 				bonusi.drawMe(g2);
 				
 				if(bonusi.detectCollision(Player.getPlayerX(), Player.getPlayerY(), bonusi.bonusX, bonusi.bonusY)) {
-					//bonusi.changeScore(score);
+					score = bonusi.changeScore(score);
 					bonus.remove(bonusi);
 					bonusTick = Panel.TICK*30;
 				}
@@ -230,6 +231,11 @@ public class Cell {
 		}
 		
 		return Panel.stateStr;
+	}
+	
+	
+	public int updateScore() {
+		return score;
 	}
 	
 	
