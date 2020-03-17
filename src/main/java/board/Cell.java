@@ -75,7 +75,7 @@ public class Cell {
 		// randomly generates the position for each regular reward, 
 		// and change the value of that cell to 99 to indicate that it contains a regular reward
 		// a total of 15 regular rewards will be generated (can be any number)
-		for (int i = 0; rewardNum < 15; i++){
+		for (int i = 0; rewardNum < 5; i++){
 			randomX = (int)Item.random(1, 9);
 			randomY = (int)Item.random(1, 9);		
 			
@@ -223,17 +223,22 @@ public class Cell {
 		return map;
 	}
 	
+	// detect if Player won or lost
 	public String detectWin() {
 		// check if all regular rewards have been collected
-		if(reward.size() == 0 && Player.getPlayerX() == 9 && Player.getPlayerY() == 8) {
+		if(reward.size() == 0 && score >= 0 && Player.getPlayerX() == 9 && Player.getPlayerY() == 8) {
 			System.out.println("Done");
 			Panel.stateStr = "WIN";
+		}
+		
+		if(score < 0) {
+			Panel.stateStr = "LOSE";
 		}
 		
 		return Panel.stateStr;
 	}
 	
-	
+	// return score so that the Board class can use it to display score
 	public int updateScore() {
 		return score;
 	}

@@ -36,7 +36,7 @@ public class Board {
 		// draw the walls
 		cell.drawMap(g2);
 		
-		// detect if Player won
+		// detect if Player won or lost
 		cell.detectWin();
 		
 		// display score
