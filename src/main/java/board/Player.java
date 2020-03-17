@@ -1,6 +1,7 @@
 package board;
 
 import java.awt.Graphics2D;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -39,13 +40,17 @@ public class Player{
 	public void move(double xs, double ys) {
 		playerX+=xs;
 		playerY+=ys;
+		
 		if (xs!= 0) {
-		if (playerX + xs >= 0 && playerX + xs <= 10) {
-			xSpeed = xs*4;
-			targetX = (playerX)*60;
-			moving = true;
+			if (playerX + xs >= 0 && playerX + xs <= 10) {
+				xSpeed = xs*4;
+				targetX = (playerX)*60;
+				moving = true;
+			}
 		}
-		}
+
+		
+		
 		if (ys!= 0) {
 		if (playerY + ys >= 0 && playerY + ys <= 10) {
 			ySpeed = ys*4;

@@ -82,6 +82,7 @@ public class ChangeState {
 			 
 			case WIN:
 				screen.drawWin(g2);
+				Panel.exitButton.setVisible(false);
 //				System.out.println("In state WIN");
 				break;
 	

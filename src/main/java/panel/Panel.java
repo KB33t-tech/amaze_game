@@ -41,7 +41,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	private Cell cell;
 	
 	private ChangeState cs;
-	private String stateStr;
+	public static String stateStr;
 	
 	private int tickCount;
 	private boolean replay, exit;
@@ -154,7 +154,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		
 		
 		cs.getState(g2, State.valueOf(stateStr));
-		
+
 		
 		//Detects if player and moving enemy touch
 		if(player.getPlayerX() == enemy.getEnemyX() && player.getPlayerY() == enemy.getEnemyY()) {
@@ -255,7 +255,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 
 	public void actionPerformed(ActionEvent e) {
 		
-		tickCount ++;
+		
 //		System.out.println(tickCount);
 		// if "Play" button is pressed at the start screen, change game state to GAME
 		if (e.getActionCommand() == "Play") 
@@ -281,59 +281,64 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 //		}
 			
 		
-		
-		if (tickCount == TICK) {			//Changing TICK speeds up player
-			/** @author kevin
-			 * I'm trying to implement AI and player detection here but should probably 
-			 * be more encapsulated, could have the move function pass in the state by value
-			 */
-		
-			for(int i=0;i<10;i++) {
-				for(int j=0;j<10;j++) {
-					weightedMap[i][j] = 10000;
-				}
-			}	
+		if(stateStr == "GAME") {
 			
-			player.beacon(weightedMap, cell.getMap(),player.getPlayerX(),player.getPlayerY(),0);
-			enemy.track(weightedMap);
+			tickCount ++;
 			
-			if(player.getPlayerX() != 9) {	// prevents the player from going out of the screen when at the exit
-				if (direction == RIGHT) {
-					if(right_stop() != -1) {
-						player.move(1, 0);
+			if (tickCount == TICK) {			//Changing TICK speeds up player
+				/** @author kevin
+				 * I'm trying to implement AI and player detection here but should probably 
+				 * be more encapsulated, could have the move function pass in the state by value
+				 */
+			
+				for(int i=0;i<10;i++) {
+					for(int j=0;j<10;j++) {
+						weightedMap[i][j] = 10000;
+					}
+				}	
+				
+				player.beacon(weightedMap, cell.getMap(),player.getPlayerX(),player.getPlayerY(),0);
+				enemy.track(weightedMap);
+				
+				if(player.getPlayerX() != 9) {	// prevents the player from going out of the screen when at the exit
+					if (direction == RIGHT) {
+						if(right_stop() != -1) {
+							player.move(1, 0);
+						}
 					}
 				}
-			}
-			
-			if(player.getPlayerX() != 0) {	// prevents the player from going out of the screen when at the start point
-				if (direction == LEFT) {
-					if(left_stop() != -1) {
-						player.move(-1, 0);
-					}	
+				
+				if(player.getPlayerX() != 0) {	// prevents the player from going out of the screen when at the start point
+					if (direction == LEFT) {
+						if(left_stop() != -1) {
+							player.move(-1, 0);
+						}	
+					}
+				
 				}
-			
-			}
-			if(direction == UP) {
-				if(up_stop() != -1) {
-					player.move(0,-1);		
+				if(direction == UP) {
+					if(up_stop() != -1) {
+						player.move(0,-1);		
+					}
 				}
-			}
-			
-			if(direction == DOWN) {
-				if(down_stop() != -1) {
-					player.move(0, 1);
+				
+				if(direction == DOWN) {
+					if(down_stop() != -1) {
+						player.move(0, 1);
+					}
 				}
+				
+				tickCount = 0;
+				direction = -1;
 			}
 			
-			tickCount = 0;
-			direction = -1;
+			player.update();
+			enemy.update();
+			
 		}
-		
-		player.update();
-		enemy.update();
 	
-		repaint();
 		
+		repaint();
 		/*
 		if(replay){
 			frame.dispose();

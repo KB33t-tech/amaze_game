@@ -28,5 +28,8 @@ public class Board {
 		
 		// draw the walls
 		cell.drawMap(g2);
+		
+		// detect if Player won
+		cell.detectWin();
 	}
 }

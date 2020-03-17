@@ -2,6 +2,7 @@ package board;
 
 import java.awt.Color;
 
+
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import board.Reward;
@@ -60,7 +61,11 @@ public class Cell {
 	// each cell size is 60px
 	public int cellSize;
 	
+	// keeps track of bonus
 	private int bonusTick = 0;
+	
+	public boolean win = false;
+	
 	
 	public Cell() {
 		cellSize = 60;
@@ -122,6 +127,13 @@ public class Cell {
 		}
 		
 		
+		
+//		if(Player.getPlayerX() != 0) {
+//			map[0][1] = 0;
+//		}
+		
+		
+		
 		// controls the regular rewards
 		for (int i = 0; i < reward.size(); i++){
 			Reward rewardi = reward.get(i);
@@ -143,11 +155,6 @@ public class Cell {
 			}
 		}
 		
-		/* check if all regular rewards have been collected
-		if(reward.size() == 0) {
-			System.out.println("Done");
-		}
-		*/
 		
 		// controls the punishments
 		for (int i = 0; i < punishment.size(); i++){
@@ -213,6 +220,16 @@ public class Cell {
 	}
 	public int[][] getMap(){
 		return map;
+	}
+	
+	public String detectWin() {
+		// check if all regular rewards have been collected
+		if(reward.size() == 0 && Player.getPlayerX() == 9 && Player.getPlayerY() == 8) {
+			System.out.println("Done");
+			Panel.stateStr = "WIN";
+		}
+		
+		return Panel.stateStr;
 	}
 	
 	
