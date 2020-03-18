@@ -86,13 +86,13 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	 */
 	public Panel(JFrame frame) throws IOException {
 		super();
-		
+		String startStateString = "WIN";//Modify this so that you can debug states easier 
 		this.setBackground(Color.white);	// set the background colour of the window
 		setPreferredSize(new Dimension(WIN_W, WIN_H));	// set the size of the window
 		
 		direction = -1;		// Player does not move when the game starts
 		
-		stateStr = "START_SCREEN";	// set initial state of the game
+		stateStr = startStateString;	// set initial state of the game
 		cs = new ChangeState();
 
 		player = new Player();
