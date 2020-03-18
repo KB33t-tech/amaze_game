@@ -72,6 +72,7 @@ public class Cell {
 	
 	// keeps track of the score
 	private int score;
+	private int time;
 	
 	
 	/**
@@ -80,6 +81,7 @@ public class Cell {
 	public Cell() {
 		cellSize = 60;
 		score = 0;
+		time = 0;
 
 	
 		// randomly generates the position for each regular reward, 
@@ -286,6 +288,14 @@ public class Cell {
 	 */
 	public int updateScore() {
 		return score;
+	}
+	/**
+	 * This method is called in {@link Board#displayTime(Graphics2D, int, int)} 
+	 * so that the board can display the latest time.
+	 * @return   the latest time
+	 */
+	public int updateTime() {
+		return ++time;
 	}
 	
 	
