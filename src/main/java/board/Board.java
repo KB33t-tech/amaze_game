@@ -61,6 +61,8 @@ public class Board {
 		
 		// display score
 		displayScore(g2, 400, 650);
+		
+		// display time
 		displayTime(g2, 100, 650);
 		
 	}
@@ -72,11 +74,10 @@ public class Board {
 	 * @param x	    x-coordinate of the score
 	 * @param y		y-coordinate of the score
 	 */
-	// display score
 	public void displayScore(Graphics2D g2, int x, int y) {
 		g2.setColor(Color.white);
 		g2.setFont(scoreText);
-		g2.drawString("Score: " + cell.updateScore(), x, y);
+		g2.drawString("Score: " + cell.getScore(), x, y);
 	}
 	/**
 	 * This method displays the current time {@link Cell#updateTime()} of Player on the screen.
@@ -85,14 +86,18 @@ public class Board {
 	 * @param x	    x-coordinate of the time
 	 * @param y		y-coordinate of the time
 	 */
-	// display time
-	
 	public void displayTime(Graphics2D g2, int x, int y) {
 		g2.setColor(Color.white);
 		g2.setFont(scoreText);
 		g2.drawString("Time: " + cell.updateTime() + " Seconds", x, y);
 	}
 	
+	/**
+	 * This method displays the total playing time on winning and losing screens.
+	 * @param g2	Java's Graphics2D drawing tool
+	 * @param x	    x-coordinate of the time
+	 * @param y		y-coordinate of the time
+	 */
 	public void stopTime(Graphics2D g2, int x, int y) {
 		g2.setColor(Color.white);
 		g2.setFont(scoreText);

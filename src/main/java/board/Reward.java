@@ -47,7 +47,7 @@ public class Reward extends Item{
 	 * This method changes the score when Player collects a regular reward by returning the new score.
 	 */
 	@Override
-	public int changeScore(int score) {
+	public int updateScore(int score) {
 		
 		// increase the score by this amount:
 		score += 10;

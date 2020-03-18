@@ -104,8 +104,8 @@ public class Cell {
 		
 		
 		// randomly generates the position for each punishment
-		// and change the value of that cell to 5 to indicate that it contains a regular reward
-		// a total of 3 regular rewards will be generated (can be any number)
+		// and change the value of that cell to 5 to indicate that it contains a punishment
+		// a total of 3 punishments will be generated (can be any number)
 		for (int i = 0; punishmentNum < 3; i++){
 			randomX = (int)Item.random(1, 9);
 			randomY = (int)Item.random(1, 9);		
@@ -160,7 +160,7 @@ public class Cell {
 			//display each item
 			itemi.drawMe(g2);
 			if(itemi.detectCollision(Player.getPlayerX(), Player.getPlayerY(), itemi.getPosX(), itemi.getPosY())) {
-			score = itemi.changeScore(score);
+			score = itemi.updateScore(score);
 			// remove the item that Player touches
 			if (itemi instanceof Reward) {
 				collected++;
@@ -198,7 +198,7 @@ public class Cell {
 				if(bonusi.detectCollision(Player.getPlayerX(), Player.getPlayerY(), bonusi.getPosX(), bonusi.getPosY())) {
 					
 					// update the score
-					score = bonusi.changeScore(score);
+					score = bonusi.updateScore(score);
 					
 					// remove the punishment that Player touches
 					bonus.remove(bonusi);
@@ -258,9 +258,10 @@ public class Cell {
 	 * so that the board can display the latest score.
 	 * @return   the latest score
 	 */
-	public int updateScore() {
+	public int getScore() {
 		return score;
 	}
+	
 	/**
 	 * This method is called in {@link Board#displayTime(Graphics2D, int, int)} 
 	 * so that the board can display the latest time.
@@ -269,6 +270,7 @@ public class Cell {
 	public int updateTime() {
 		return (++time/30);	//time is displayed in seconds
 	}
+	
 	/**
 	 * This method is called in {@link Board#displayTime(Graphics2D, int, int)} 
 	 * Method is use to stop the time.

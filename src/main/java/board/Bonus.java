@@ -44,7 +44,7 @@ public class Bonus extends Item{
 	 * This method changes the score when Player collects a bonus reward by returning the new score.
 	 */
 	@Override
-	protected int changeScore(int score) {
+	protected int updateScore(int score) {
 		
 		// increase the score by this amount:
 		score += 30;	

@@ -46,7 +46,7 @@ public class Punishment extends Item{
 	 * This method changes the score when Player moves into a punishment by returning the new score.
 	 */
 	@Override
-	public int changeScore(int score) {
+	public int updateScore(int score) {
 		
 		// decrease the score by this amount:
 		score -= 50;

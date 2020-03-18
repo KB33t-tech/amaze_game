@@ -99,7 +99,7 @@ public class ChangeState {
 				Panel.gobackButton.setVisible(false);
 				Panel.exitButton.setVisible(true);
 				
-				board.stopTime(g2,Panel.WIN_W/2-120, Panel.BOARD_H/2 );
+				board.stopTime(g2,Panel.WIN_W/2-120, Panel.BOARD_H/2);
 //				Panel.replayButton.setVisible(true);
 //				System.out.println("In state LOSE");
 				break;
@@ -110,7 +110,7 @@ public class ChangeState {
 				// displays the winning screen and score
 				screen.drawWin(g2);
 				board.displayScore(g2, Panel.WIN_W/2-80, Panel.BOARD_H/2);
-				board.stopTime(g2,Panel.WIN_W/2-80, Panel.BOARD_H/2+30 );
+				board.stopTime(g2,Panel.WIN_W/2-80, Panel.BOARD_H/2+30);
 				Panel.exitButton.setVisible(true);
 //				System.out.println("In state WIN");
 				break;
