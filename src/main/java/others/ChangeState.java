@@ -96,7 +96,7 @@ public class ChangeState {
 				Panel.playButton.setVisible(false);
 				Panel.insButton.setVisible(false);
 				Panel.gobackButton.setVisible(false);
-				Panel.exitButton.setVisible(false);
+				Panel.exitButton.setVisible(true);
 //				Panel.replayButton.setVisible(true);
 //				System.out.println("In state LOSE");
 				break;
@@ -108,7 +108,7 @@ public class ChangeState {
 				screen.drawWin(g2);
 				board.displayScore(g2, Panel.WIN_W/2-80, Panel.BOARD_H/2);
 				
-				Panel.exitButton.setVisible(false);
+				Panel.exitButton.setVisible(true);
 //				System.out.println("In state WIN");
 				break;
 	
