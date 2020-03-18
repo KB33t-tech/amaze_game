@@ -47,19 +47,18 @@ public class Cell {
 			{ 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 },
 	};
 	
-	// create an arrayList of regular rewards
-	private ArrayList <Reward> reward = new ArrayList<Reward>();
-			
-	// create an arrayList of punishments
-	private ArrayList <Punishment> punishment = new ArrayList<Punishment>();
-	
 	// create an arrayList of bonus
 	private ArrayList <Bonus> bonus = new ArrayList<Bonus>();
+	//create an arrayList of regular rewards and punishments
+	private ArrayList <Item> items = new ArrayList<Item>();
 		
 	// set the number of regular reward and punishment
 	private int rewardNum = 0;
 	private int punishmentNum = 0;
 	private int bonusNum = 0;
+	
+	//keep track of the number of rewards collected
+	private int collected;
 	
 	// holds the random position for each reward and punishment
 	private int randomX, randomY;
@@ -98,7 +97,8 @@ public class Cell {
 				rewardNum+=1;
 				
 				// when an unused cell is found, add a new reward to the reward arrayList with this position:
-				reward.add(new Reward (randomX, randomY));	
+				
+				items.add(new Reward (randomX, randomY));
 			}
 		}
 		
@@ -118,7 +118,8 @@ public class Cell {
 				punishmentNum+=1;
 				
 				// when an unused cell is found, add a new punishment to the punishment arrayList with this position:
-				punishment.add(new Punishment (randomX, randomY));
+				
+				items.add(new Punishment (randomX, randomY));
 			}
 		}
 	}
@@ -152,52 +153,23 @@ public class Cell {
 		if(Player.getPlayerX() > 0) {
 			map[0][1] = 0;
 		}
-		
-		
-		// controls the regular rewards
-		for (int i = 0; i < reward.size(); i++){
-			Reward rewardi = reward.get(i);
+		//controls all items
+		for (int i =0; i < items.size(); i++) {
+			Item itemi = items.get(i);
 			
-			// display each regular reward
-			rewardi.drawMe(g2);
-			
-			// detect if Player and a reward touch
-			if(rewardi.detectCollision(Player.getPlayerX(), Player.getPlayerY(), rewardi.getFireX(), rewardi.getFireY())) {
-				
-				// update the score
-				score = rewardi.changeScore(score);
-				
-				// remove the reward that Player touches
-				reward.remove(rewardi);
-				
-				// change the value of the cell from 99 back to 1 (meaning it's an empty cell),
-				// so that a Bonus reward can reuse the cell
-				item_map[Player.getPlayerX()][Player.getPlayerY()] = 1;
+			//display each item
+			itemi.drawMe(g2);
+			if(itemi.detectCollision(Player.getPlayerX(), Player.getPlayerY(), itemi.getPosX(), itemi.getPosY())) {
+			score = itemi.changeScore(score);
+			// remove the item that Player touches
+			if (itemi instanceof Reward) {
+				collected++;
+			}
+			items.remove(itemi);
+			// reset the value of the cell back to 1
+			item_map[Player.getPlayerX()][Player.getPlayerY()] = 1;
 			}
 		}
-		
-		
-		// controls the punishments
-		for (int i = 0; i < punishment.size(); i++){
-			Punishment punishmenti = punishment.get(i);
-			
-			// display each punishment
-			punishmenti.drawMe(g2);
-			
-			// detect if Player and a reward touch
-			if(punishmenti.detectCollision(Player.getPlayerX(), Player.getPlayerY(), punishmenti.getPunishX(), punishmenti.getPunishY())) {
-				
-				// update the score
-				score = punishmenti.changeScore(score);
-				
-				// remove the punishment that Player touches
-				punishment.remove(punishmenti);
-				
-				// reset the value of the cell back to 1
-				item_map[Player.getPlayerX()][Player.getPlayerY()] = 1;
-			}
-		}
-		
 
 		bonusTick++;
 //		System.out.println(bonusTick);
@@ -211,7 +183,7 @@ public class Cell {
 			if(randomY != 8 && item_map[randomX][randomY] != 0 && 
 					item_map[randomX][randomY] != 99 && item_map[randomX][randomY] != 5) {
 				bonusNum+=1;
-				bonus.add(new Bonus (randomX, randomY));
+				bonus.add(new Bonus(randomX, randomY));
 			}
 		}
 		
@@ -223,7 +195,7 @@ public class Cell {
 				bonusi.drawMe(g2);
 				
 				// when the bonus reward is visible, detect if Player and bonus reward touch
-				if(bonusi.detectCollision(Player.getPlayerX(), Player.getPlayerY(), bonusi.getBonusX(), bonusi.getBonusY())) {
+				if(bonusi.detectCollision(Player.getPlayerX(), Player.getPlayerY(), bonusi.getPosX(), bonusi.getPosY())) {
 					
 					// update the score
 					score = bonusi.changeScore(score);
@@ -274,7 +246,7 @@ public class Cell {
 				
 		// check if all regular rewards have been collected and if Player is on the exit cell
 		// change the game state to "WIN"
-		if(reward.size() == 0 && Player.getPlayerX() == 9 && Player.getPlayerY() == 8) {
+		if(collected == 15 && Player.getPlayerX() == 9 && Player.getPlayerY() == 8) {
 			System.out.println("Done");
 			Panel.stateStr = "WIN";
 		}

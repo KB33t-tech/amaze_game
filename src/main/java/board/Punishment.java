@@ -15,9 +15,6 @@ public class Punishment extends Item{
 	// punishments are displayed as a bufferedImage named "punishmentImg"
 	private BufferedImage punishmentImg;
 	
-	// the x-coordinate and the y-coordinate of each punishment
-	private int punishmentX, punishmentY;
-	
 	/**
 	 * The constructor assigns the position to each punishment and load an image to {@link #punishmentImg}.
 	 * @param xPos	x-coordinate of punishments
@@ -25,8 +22,8 @@ public class Punishment extends Item{
 	 */
 	public Punishment(int xPos, int yPos) {
 		
-		punishmentX = xPos;
-		punishmentY = yPos;
+		PosX = xPos;
+		PosY = yPos;
 		
 		try {
 			punishmentImg = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("Punishment.png"));
@@ -41,7 +38,7 @@ public class Punishment extends Item{
 	 */
 	@Override
 	public void drawMe(Graphics2D g2) {
-		g2.drawImage(punishmentImg, punishmentX*60, punishmentY*60, 60, 60, null);
+		g2.drawImage(punishmentImg, PosX*60, PosY*60, 60, 60, null);
 	}
 
 	
@@ -56,11 +53,4 @@ public class Punishment extends Item{
 		
 		return score;
 	}
-	public int getPunishX() {
-		return punishmentX;
-	}
-	public int getPunishY() {
-		return punishmentY;
-	}
-
 }

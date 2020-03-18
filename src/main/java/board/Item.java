@@ -9,7 +9,7 @@ import java.awt.Graphics2D;
  * @see Bonus
  */
 public abstract class Item {
-	
+	protected int PosX, PosY;
 	/**
 	 * This abstract method lets Reward, Punishment, and Bonus classes draw their corresponding images.
 	 * @param g2  Java's Graphics2D drawing tool
@@ -35,6 +35,12 @@ public abstract class Item {
 	 * @param y  y-coordinate of {@link Reward}, {@link Punishment}, or {@link Bonus}
 	 * @return   true if collision happened, false otherwise
 	 */
+	public int getPosX() {
+		return PosX;
+	}
+	public int getPosY() {
+		return PosY;
+	}
 	public boolean detectCollision(int a, int b, int x, int y) {
 		if ((a == x) && (b == y)) {
 			return true;

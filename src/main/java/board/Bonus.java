@@ -15,9 +15,6 @@ public class Bonus extends Item{
 	// bonuses are displayed as a bufferedImage named "bonusImg"
 	private BufferedImage bonusImg;
 	
-	// the x-coordinate and the y-coordinate of each bonus
-	private int bonusX, bonusY;
-	
 	/**
 	 * The constructor assigns the position to each punishment and load an image to {@link #bonusImg}.
 	 * @param xPos	x-coordinate of bonuses
@@ -25,8 +22,8 @@ public class Bonus extends Item{
 	 */
 	public Bonus(int xPos, int yPos) {
 		
-		bonusX = xPos;
-		bonusY = yPos;
+		PosX = xPos;
+		PosY = yPos;
 		
 		try {
 			bonusImg = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("Bonus.png"));
@@ -40,7 +37,7 @@ public class Bonus extends Item{
 	 */
 	@Override
 	protected void drawMe(Graphics2D g2) {
-		g2.drawImage(bonusImg, bonusX*60, bonusY*60, 60, 60, null);
+		g2.drawImage(bonusImg, PosX*60, PosY*60, 60, 60, null);
 	}
 
 	/**
@@ -53,12 +50,5 @@ public class Bonus extends Item{
 		score += 30;	
 		
 		return score;
-	}
-	
-	public int getBonusX() {
-		return bonusX;
-	}
-	public int getBonusY() {
-		return bonusY;
 	}
 }
