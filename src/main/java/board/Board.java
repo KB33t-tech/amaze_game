@@ -61,6 +61,8 @@ public class Board {
 		
 		// display score
 		displayScore(g2, 400, 650);
+		displayTime(g2, 100, 650);
+		
 	}
 	
 	/**
@@ -88,7 +90,13 @@ public class Board {
 	public void displayTime(Graphics2D g2, int x, int y) {
 		g2.setColor(Color.white);
 		g2.setFont(scoreText);
-		g2.drawString("Time: " + cell.updateTime(), x, y);
+		g2.drawString("Time: " + cell.updateTime() + " Seconds", x, y);
+	}
+	
+	public void stopTime(Graphics2D g2, int x, int y) {
+		g2.setColor(Color.white);
+		g2.setFont(scoreText);
+		g2.drawString("Time: " + cell.stopTime() + " Seconds", x, y);
 	}
 	
 }

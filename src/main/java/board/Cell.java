@@ -295,7 +295,15 @@ public class Cell {
 	 * @return   the latest time
 	 */
 	public int updateTime() {
-		return ++time;
+		return (++time/30);	//time is displayed in seconds
+	}
+	/**
+	 * This method is called in {@link Board#displayTime(Graphics2D, int, int)} 
+	 * Method is use to stop the time.
+	 * @return   the latest time
+	 */
+	public int stopTime() {
+		return time/30;
 	}
 	
 	
