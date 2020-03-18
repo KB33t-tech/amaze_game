@@ -339,7 +339,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 				 * I'm trying to implement AI and player detection here but should probably 
 				 * be more encapsulated, could have the move function pass in the state by value
 				 */
-			
+			cell.updateTime();
 				for(int i=0;i<10;i++) {
 					for(int j=0;j<10;j++) {
 						weightedMap[i][j] = 10000;
