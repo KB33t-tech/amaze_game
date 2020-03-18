@@ -96,7 +96,7 @@ public class Board {
 	public void stopTime(Graphics2D g2, int x, int y) {
 		g2.setColor(Color.white);
 		g2.setFont(scoreText);
-		g2.drawString("Time: " + cell.stopTime() + " Seconds", x, y);
+		g2.drawString("Time:  " + cell.stopTime() + " Seconds", x, y);
 	}
 	
 }
