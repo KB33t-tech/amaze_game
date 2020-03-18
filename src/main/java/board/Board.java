@@ -76,4 +76,19 @@ public class Board {
 		g2.setFont(scoreText);
 		g2.drawString("Score: " + cell.updateScore(), x, y);
 	}
+	/**
+	 * This method displays the current time {@link Cell#updateTime()} of Player on the screen.
+	 * It also sets the text colour to be white.
+	 * @param g2	Java's Graphics2D drawing tool
+	 * @param x	    x-coordinate of the time
+	 * @param y		y-coordinate of the time
+	 */
+	// display time
+	
+	public void displayTime(Graphics2D g2, int x, int y) {
+		g2.setColor(Color.white);
+		g2.setFont(scoreText);
+		g2.drawString("Time: " + cell.updateTime(), x, y);
+	}
+	
 }
