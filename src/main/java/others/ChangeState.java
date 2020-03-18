@@ -99,7 +99,7 @@ public class ChangeState {
 				Panel.gobackButton.setVisible(false);
 				Panel.exitButton.setVisible(true);
 				
-				board.stopTime(g2,Panel.WIN_W/2-160, Panel.BOARD_H/2 );
+				board.stopTime(g2,Panel.WIN_W/2-120, Panel.BOARD_H/2 );
 //				Panel.replayButton.setVisible(true);
 //				System.out.println("In state LOSE");
 				break;
