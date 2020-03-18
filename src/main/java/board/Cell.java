@@ -162,7 +162,7 @@ public class Cell {
 			rewardi.drawMe(g2);
 			
 			// detect if Player and a reward touch
-			if(rewardi.detectCollision(Player.getPlayerX(), Player.getPlayerY(), rewardi.fireX, rewardi.fireY)) {
+			if(rewardi.detectCollision(Player.getPlayerX(), Player.getPlayerY(), rewardi.getFireX(), rewardi.getFireY())) {
 				
 				// update the score
 				score = rewardi.changeScore(score);
@@ -185,7 +185,7 @@ public class Cell {
 			punishmenti.drawMe(g2);
 			
 			// detect if Player and a reward touch
-			if(punishmenti.detectCollision(Player.getPlayerX(), Player.getPlayerY(), punishmenti.punishmentX, punishmenti.punishmentY)) {
+			if(punishmenti.detectCollision(Player.getPlayerX(), Player.getPlayerY(), punishmenti.getPunishX(), punishmenti.getPunishY())) {
 				
 				// update the score
 				score = punishmenti.changeScore(score);
@@ -223,7 +223,7 @@ public class Cell {
 				bonusi.drawMe(g2);
 				
 				// when the bonus reward is visible, detect if Player and bonus reward touch
-				if(bonusi.detectCollision(Player.getPlayerX(), Player.getPlayerY(), bonusi.bonusX, bonusi.bonusY)) {
+				if(bonusi.detectCollision(Player.getPlayerX(), Player.getPlayerY(), bonusi.getBonusX(), bonusi.getBonusY())) {
 					
 					// update the score
 					score = bonusi.changeScore(score);

@@ -16,7 +16,7 @@ public class Punishment extends Item{
 	private BufferedImage punishmentImg;
 	
 	// the x-coordinate and the y-coordinate of each punishment
-	public int punishmentX, punishmentY;
+	private int punishmentX, punishmentY;
 	
 	/**
 	 * The constructor assigns the position to each punishment and load an image to {@link #punishmentImg}.
@@ -55,6 +55,12 @@ public class Punishment extends Item{
 		score -= 50;
 		
 		return score;
+	}
+	public int getPunishX() {
+		return punishmentX;
+	}
+	public int getPunishY() {
+		return punishmentY;
 	}
 
 }

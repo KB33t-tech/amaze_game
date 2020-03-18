@@ -17,7 +17,7 @@ public class Reward extends Item{
 	private BufferedImage fireImg;
 	
 	// the x-coordinate and the y-coordinate of each regular reward
-	public int fireX, fireY;
+	private int fireX, fireY;
 	
 	/**
 	 * The constructor assigns the position to each regular reward and load an image to {@link #fireImg}.
@@ -56,6 +56,13 @@ public class Reward extends Item{
 		score += 10;
 		
 		return score;
+	}
+	public int getFireX() {
+		return fireX;
+	}
+	
+	public int getFireY() {
+		return fireY;
 	}
 
 }
