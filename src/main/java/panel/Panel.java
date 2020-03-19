@@ -86,7 +86,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	 */
 	public Panel(JFrame frame) throws IOException {
 		super();
-		String startStateString = "WIN";//Modify this so that you can debug states easier 
+		String startStateString = "START_SCREEN";//Modify this so that you can debug states easier 
 		this.setBackground(Color.white);	// set the background colour of the window
 		setPreferredSize(new Dimension(WIN_W, WIN_H));	// set the size of the window
 		
