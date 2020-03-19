@@ -60,10 +60,12 @@ public class Board {
 		cell.detectWin();
 		
 		// display score
-		displayScore(g2, 400, 650);
+		displayScore(g2, 400, 660);
 		
 		// display time
-		displayTime(g2, 100, 650);
+		displayTime(g2, 100, 660);
+		
+		displayTip(g2, 200, 620);
 		
 	}
 	
@@ -79,6 +81,18 @@ public class Board {
 		g2.setFont(scoreText);
 		g2.drawString("Score: " + cell.getScore(), x, y);
 	}
+	
+	/**
+	 * This method tells the player to collect all fire to win.
+	 * @param g2	Java's Graphics2D drawing tool
+	 * @param x	    x-coordinate of tip
+	 * @param y	    y-coordinate of tip
+	 */
+	private void displayTip(Graphics2D g2, int x, int y) {
+		g2.setFont(scoreText.deriveFont(Font.PLAIN|Font.ITALIC, 12));
+		g2.drawString("Tip: collect all the fire to win!", x, y);
+	}
+	
 	/**
 	 * This method displays the current time {@link Cell#updateTime()} of Player on the screen.
 	 * It also sets the text colour to be white.
