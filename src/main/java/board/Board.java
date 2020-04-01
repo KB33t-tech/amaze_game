@@ -57,7 +57,7 @@ public class Board {
 		cell.drawMap(g2);
 		
 		// detect if Player won or lost
-		cell.detectWin();
+//		cell.detectWin();
 		
 		// display score
 		displayScore(g2, 400, 660);

@@ -222,6 +222,9 @@ public class Cell {
 			bonusTick = 0;
 			bonusNum = 0;
 		}
+		
+		detectWin(score, collected);
+		
 	}
 	
 	/**
@@ -237,19 +240,25 @@ public class Cell {
 	 * This method detects if Player has won or lost the game.
 	 * @return	 string that shows the state of the game
 	 */
-	public String detectWin() {
+	public String detectWin(int score, int collected) {
+//		System.out.println(Panel.stateStr);
 		
 		// check if the score is negative and change the game state to "LOSE" if it is
 		if(score < 0) {
 			Panel.stateStr = "LOSE";
 		}
-				
+
 		// check if all regular rewards have been collected and if Player is on the exit cell
 		// change the game state to "WIN"
-		if(collected == 15 && Player.getPlayerX() == 9 && Player.getPlayerY() == 8) {
-			System.out.println("Done");
-			Panel.stateStr = "WIN";
+		if(Player.getPlayerX() == 9 && Player.getPlayerY() == 8) {
+			if(collected == rewardNum) {
+				System.out.println("Done");
+				Panel.stateStr = "WIN";
+			}else {
+				Panel.stateStr = "GAME";
+			}
 		}
+		
 		return Panel.stateStr;
 	}
 	
