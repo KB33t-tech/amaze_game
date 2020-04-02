@@ -4,6 +4,7 @@ import java.awt.Color;
 
 
 import java.awt.Graphics2D;
+import java.io.IOException;
 import java.util.ArrayList;
 import board.Reward;
 import panel.Panel;
@@ -73,7 +74,6 @@ public class Cell {
 	private int score;
 	private int time;
 	
-	
 	/**
 	 * The constructor sets the initial position of each regular reward and punishment.
 	 */
@@ -81,7 +81,6 @@ public class Cell {
 		cellSize = 60;
 		score = 0;
 		time = 0;
-
 	
 		// randomly generates the position for each regular reward, 
 		// and change the value of that cell to 99 to indicate that it contains a regular reward

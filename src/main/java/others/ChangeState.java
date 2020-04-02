@@ -1,6 +1,7 @@
 package others;
 
 import java.awt.Graphics2D;
+import java.io.IOException;
 
 import board.Board;
 import board.Cell;
@@ -29,7 +30,6 @@ public class ChangeState {
 		
 		screen = new Screen();
 		board = new Board();
-
 	}
 	
 	

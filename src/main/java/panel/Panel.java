@@ -46,6 +46,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	
 	private ChangeState cs;	// a ChangeState object
 	public static String stateStr;	// string that stores the current state of the game
+	private WallDetection wd;
 	
 	private int tickCount;	// keeps track of each TICK of the game
 	private boolean replay, exit;	// boolean that keeps track if replay or exit button is pressed
@@ -98,6 +99,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		player = new Player();
 		enemy = spawnEnemy();
 		cell = new Cell();
+		wd = new WallDetection();
 
 		tickCount = 0;	// each tick starts incrementing at 0
 		replay = false;
@@ -167,14 +169,19 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		// switches the state of the game by passing the state string
 		// and draws according to the state
 		cs.getState(g2, State.valueOf(stateStr));
+		
+		enemyCollision();
 
+	}
+	
+	
+	public String enemyCollision() {
 		// detects if player and moving enemy touch
 		if(player.getPlayerX() == enemy.getEnemyX() && player.getPlayerY() == enemy.getEnemyY()) {
 			stateStr = "LOSE";
 		}
-
+		 return stateStr;
 	}
-
 
 	/**
 	 * This is a method from KeyListener.
@@ -206,95 +213,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	public void keyReleased(KeyEvent e) {
 		
 	}
-	
-	
-	/**
-	 * This method detects whether the cell on Player's right is a wall.
-	 * If the cell is a wall, direction becomes -1 and Player cannot move.
-	 * Otherwise, direction becomes RIGHT and Player will move in the right direction.
-	 * @return		direction that Player will be moving in
-	 */
-	private int right_stop() {
-		
-		try {
-		for(int i = 0; i < cell.getMap().length; i++){
-			for(int j = 0; j < cell.getMap()[i].length; j++){
-				
-				if(cell.getMap()[player.getPlayerX() + 1][player.getPlayerY()] == 0) {
-//					System.out.println((player.getPlayerX()+1) + " " + player.getPlayerY());
-					direction = -1;
-				}
-			}
-		}	
-		
-		}catch(ArrayIndexOutOfBoundsException e) {
-			System.out.println("Out of bound");
-		}catch(Exception e2) {
-			System.out.println("Others");
-		}
-		
-		return direction;
-	}
-	
-	/**
-	 * This method detects whether the cell on Player's left is a wall.
-	 * If the cell is a wall, direction becomes -1 and Player cannot move.
-	 * Otherwise, direction becomes LEFT and Player will move in the left direction.
-	 * @return		direction that Player will be moving in
-	 */
-	private int left_stop() {
-		for(int i = 0; i < cell.getMap().length; i++){
-			for(int j = 0; j < cell.getMap()[i].length; j++){
-				
-				// once Player left the start cell by moving one cell to the right, 
-				// they also cannot move back to the start cell by pressing the left arrow key
-				if(cell.getMap()[player.getPlayerX() - 1][player.getPlayerY()] == 0 ||
-						(player.getPlayerX() == 1) && player.getPlayerY() == 1) {
-//					System.out.println((player.getPlayerX()+1) + " " + player.getPlayerY());
-					direction = -1;
-				}				
-			}
-		}
-		return direction;
-	}
-	
-	/**
-	 * This method detects whether the cell above Player is a wall.
-	 * If the cell is a wall, direction becomes -1 and Player cannot move.
-	 * Otherwise, direction becomes UP and Player will move in the up direction.
-	 * @return		direction that Player will be moving in
-	 */
-	private int up_stop() {
-		for(int i = 0; i < cell.getMap().length; i++){
-			for(int j = 0; j < cell.getMap()[i].length; j++){
-				
-				if(cell.getMap()[player.getPlayerX()][player.getPlayerY() - 1] == 0) {
-//					System.out.println((player.getPlayerX()) + " " + (player.getPlayerY()-1));
-					direction = -1;;
-				}
-			}
-		}
-		return direction;
-	}
-	
-	/**
-	 * This method detects whether the cell below Player is a wall.
-	 * If the cell is a wall, direction becomes -1 and Player cannot move.
-	 * Otherwise, direction becomes DOWN and Player will move in the down direction.
-	 * @return		direction that Player will be moving in
-	 */
-	private int down_stop() {
-		for(int i = 0; i < cell.getMap().length; i++){
-			for(int j = 0; j < cell.getMap()[i].length; j++){
-							
-				if(cell.getMap()[player.getPlayerX()][player.getPlayerY() + 1] == 0) {
-//					System.out.println(player.getPlayerX() + " " + (player.getPlayerY()+1));
-					direction = -1;;
-				}
-			}
-		}
-		return direction;
-	}
+
 
 
 	/**
@@ -327,7 +246,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 //			replay = true;
 //		}
 			
-		
+
 		// if the state of the game is "GAME"
 		if(stateStr == "GAME") {
 			
@@ -351,15 +270,15 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 				
 				if(player.getPlayerX() != 9) {	// prevents the player from going out of the screen when at the exit
 					if (direction == RIGHT) {	// if the right arrow key is pressed
-						if(right_stop() != -1) {	// if the right cell is not a wall
+						if(!wd.right_stop()) {	// if the right cell is not a wall
 							player.move(1, 0);	// move Player one cell to the right
 						}
 					}
 				}
 				
 				if(player.getPlayerX() != 0) {	// prevents the player from going out of the screen when at the start point
-					if (direction == LEFT) {	// if the left arrow key is pressed
-						if(left_stop() != -1) {		// if the left cell is not a wall
+					if (direction == LEFT) {	// if the left arrow key is pressed	
+						if(!wd.left_stop()) {	// if the left cell is not a wall
 							player.move(-1, 0);	// move Player one cell to the left
 						}	
 					}
@@ -367,13 +286,13 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 				}
 				
 				if(direction == UP) {	// if the up arrow key is pressed
-					if(up_stop() != -1) {	// if the cell above is not a wall
+					if(!wd.up_stop()) {	// if the cell above is not a wall
 						player.move(0,-1);	// move Player one cell up
 					}
 				}
 				
 				if(direction == DOWN) {		// if the down arrow key is pressed
-					if(down_stop() != -1) {		// if the cell below is not a wall
+					if(!wd.down_stop()) {	// if the cell below is not a wall
 						player.move(0, 1);	// move Player one cell down
 					}
 				}
