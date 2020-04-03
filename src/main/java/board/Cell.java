@@ -222,7 +222,7 @@ public class Cell {
 			bonusNum = 0;
 		}
 		
-		detectWin(score, collected);
+		detectWin(score, collected, rewardNum);
 		
 	}
 	
@@ -239,8 +239,9 @@ public class Cell {
 	 * This method detects if Player has won or lost the game.
 	 * @return	 string that shows the state of the game
 	 */
-	public String detectWin(int score, int collected) {
-//		System.out.println(Panel.stateStr);
+	
+	
+	public String detectWin(int score, int collected, int rewardNum) {
 		
 		// check if the score is negative and change the game state to "LOSE" if it is
 		if(score < 0) {
@@ -260,6 +261,7 @@ public class Cell {
 		
 		return Panel.stateStr;
 	}
+	
 	
 	/**
 	 * This method is called in {@link Board#displayScore(Graphics2D, int, int)} 
