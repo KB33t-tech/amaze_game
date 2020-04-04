@@ -75,17 +75,25 @@ public class Cell {
 	private int time;
 	
 	/**
-	 * The constructor sets the initial position of each regular reward and punishment.
+	 * The constructor sets the initial tile size, score, and time.
 	 */
 	public Cell() {
 		cellSize = 60;
 		score = 0;
 		time = 0;
+	}
 	
+
+	/**
+	 * This method randomly adds regular rewards to the map.
+	 * @param count		an int variable that holds the total number of regular rewards on the map
+	 * @return			the total number of regular rewards on the map
+	 */
+	public int rewardGenerator(int count) {
 		// randomly generates the position for each regular reward, 
 		// and change the value of that cell to 99 to indicate that it contains a regular reward
 		// a total of 15 regular rewards will be generated (can be any number)
-		for (int i = 0; rewardNum < 15; i++){
+		for (int i = 0; count < 15; i++){
 			randomX = (int)Item.random(1, 9);
 			randomY = (int)Item.random(1, 9);		
 			
@@ -93,15 +101,21 @@ public class Cell {
 			if(item_map[randomX][randomY] != 0 && item_map[randomX][randomY] != 99) {
 				item_map[randomX][randomY] = 99;
 				
-				rewardNum+=1;
+				count+=1;
 				
 				// when an unused cell is found, add a new reward to the reward arrayList with this position:
-				
 				items.add(new Reward (randomX, randomY));
 			}
 		}
 		
-		
+		return count;
+	}
+	
+	
+	/**
+	 * This method randomly adds punishments to the map.
+	 */
+	public void punishmentGenerator() {
 		// randomly generates the position for each punishment
 		// and change the value of that cell to 5 to indicate that it contains a punishment
 		// a total of 3 punishments will be generated (can be any number)
@@ -117,11 +131,11 @@ public class Cell {
 				punishmentNum+=1;
 				
 				// when an unused cell is found, add a new punishment to the punishment arrayList with this position:
-				
 				items.add(new Punishment (randomX, randomY));
 			}
 		}
 	}
+	
 	
 	
 	/**
@@ -130,7 +144,11 @@ public class Cell {
 	 * @param g2  Java's Graphics2D drawing tool
 	 */
 	public void drawMap(Graphics2D g2) {
-	
+		
+		rewardNum = rewardGenerator(rewardNum);
+		punishmentGenerator();
+//		System.out.println("num " + rewardNum);
+		
 		// draws the walls of the maze
 		try{
 			for(int i = 0; i < map.length; i++){
@@ -152,6 +170,7 @@ public class Cell {
 		if(Player.getPlayerX() > 0) {
 			map[0][1] = 0;
 		}
+		
 		//controls all items
 		for (int i =0; i < items.size(); i++) {
 			Item itemi = items.get(i);
@@ -223,8 +242,8 @@ public class Cell {
 		}
 		
 		detectWin(score, collected, rewardNum);
-		
 	}
+	
 	
 	/**
 	 * This method returns the layout of the maze.
@@ -232,6 +251,11 @@ public class Cell {
 	 */
 	public int[][] getMap(){
 		return map;
+	}
+	
+	
+	public int[][] getItemMap(){
+		return item_map;
 	}
 	
 	
