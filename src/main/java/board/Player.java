@@ -155,7 +155,7 @@ public class Player{
 	 * This method is a getter for Player's x-coordinate.
 	 * @return   x-coordinate of Player
 	 */
-	public static int getPlayerX() {
+	public int getPlayerX() {
 		return playerX;
 	}
 
@@ -163,7 +163,7 @@ public class Player{
 	 * This method is a getter for Player's y-coordinate.
 	 * @return   y-coordinate of Player
 	 */
-	public static int getPlayerY() {
+	public int getPlayerY() {
 		return playerY;
 	}
 }

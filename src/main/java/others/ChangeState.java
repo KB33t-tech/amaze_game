@@ -41,83 +41,108 @@ public class ChangeState {
 	 * @param g2 		Java's Graphics2D drawing tool
 	 * @param state 	state of the game
 	 */
-	public void getState(Graphics2D g2, State state) {
+	public void switchState(Graphics2D g2, State state) {
+		
 	
 		switch(state) {
 		
 			// if the state is "START_SCREEN"
 			case START_SCREEN:
 				
-				// displays the start (menu) screen
-				screen.drawCover(g2);		
-				
-				// set the visibility of each button
-				Panel.playButton.setVisible(true);
-				Panel.insButton.setVisible(true);
-				Panel.gobackButton.setVisible(false);
-				Panel.exitButton.setVisible(false);
-				Panel.replayButton.setVisible(false);
-//				System.out.println("In state START_SCREEN");
+				displayStart(g2);
 				break;
 		
 			// if the state is "INSTRUCTION"
 			case INSTRUCTION:
 				
-				// displays the instruction screen
-				screen.drawInstruction(g2);
-				
-				Panel.playButton.setVisible(false);
-				Panel.insButton.setVisible(false);
-				Panel.gobackButton.setVisible(true);
-				Panel.replayButton.setVisible(false);
-				Panel.exitButton.setVisible(false);
-//				System.out.println("In state INSTRUCTION");
+				displayInstruction(g2);
 				break;
 			 
 			// if the state is "GAME"
 			case GAME:
 				
-				// displays the board, rewards, punishments, Player, and Moving Enemy.
-				board.drawMe(g2);
-				Player.drawMe(g2);
-				Enemy.drawMe(g2);
-				
-				Panel.playButton.setVisible(false);
-				Panel.insButton.setVisible(false);
-				Panel.gobackButton.setVisible(false);
-				Panel.exitButton.setVisible(true);
-				Panel.replayButton.setVisible(false);
-//				System.out.println("In state GAME");
+				displayGame(g2);
 				break;
 			 
 			// if the state is "LOSE"	
 			case LOSE:
 				
-				// displays the losing screen
-				screen.drawLose(g2);
-
-				Panel.playButton.setVisible(false);
-				Panel.insButton.setVisible(false);
-				Panel.gobackButton.setVisible(false);
-				Panel.exitButton.setVisible(true);
-				
-				board.stopTime(g2,Panel.WIN_W/2-120, Panel.BOARD_H/2);
-//				Panel.replayButton.setVisible(true);
-//				System.out.println("In state LOSE");
+				displayLose(g2);
 				break;
 			 
 			// if the state is "WIN"
 			case WIN:
-				
-				// displays the winning screen and score
-				screen.drawWin(g2);
-				board.displayScore(g2, Panel.WIN_W/2-80, Panel.BOARD_H/2);
-				board.stopTime(g2,Panel.WIN_W/2-80, Panel.BOARD_H/2+30);
-				Panel.exitButton.setVisible(true);
-//				System.out.println("In state WIN");
+			
+				displayWin(g2);
 				break;
 	
 		}
 	}
 
+	
+	private void displayStart(Graphics2D g2) {
+		// displays the start (menu) screen
+		screen.drawCover(g2);		
+		
+		// set the visibility of each button
+		Panel.playButton.setVisible(true);
+		Panel.insButton.setVisible(true);
+		Panel.gobackButton.setVisible(false);
+		Panel.exitButton.setVisible(false);
+		Panel.replayButton.setVisible(false);
+//		System.out.println("In state START_SCREEN");
+	}
+	
+	
+	private void displayInstruction(Graphics2D g2) { 
+		// displays the instruction screen
+		screen.drawInstruction(g2);
+		
+		Panel.playButton.setVisible(false);
+		Panel.insButton.setVisible(false);
+		Panel.gobackButton.setVisible(true);
+		Panel.replayButton.setVisible(false);
+		Panel.exitButton.setVisible(false);
+//		System.out.println("In state INSTRUCTION");
+	}
+	
+	
+	private void displayGame(Graphics2D g2) { 
+		// displays the board, rewards, punishments, Player, and Moving Enemy.
+		board.drawMe(g2);
+		Player.drawMe(g2);
+		Enemy.drawMe(g2);
+		
+		Panel.playButton.setVisible(false);
+		Panel.insButton.setVisible(false);
+		Panel.gobackButton.setVisible(false);
+		Panel.exitButton.setVisible(true);
+		Panel.replayButton.setVisible(false);
+//		System.out.println("In state GAME");
+	}
+	
+	private void displayLose(Graphics2D g2) { 
+		// displays the losing screen
+		screen.drawLose(g2);
+
+		Panel.playButton.setVisible(false);
+		Panel.insButton.setVisible(false);
+		Panel.gobackButton.setVisible(false);
+		Panel.exitButton.setVisible(true);
+		
+		board.stopTime(g2,Panel.WIN_W/2-120, Panel.BOARD_H/2);
+//		Panel.replayButton.setVisible(true);
+//		System.out.println("In state LOSE");
+	}
+	
+	private void displayWin(Graphics2D g2) { 
+		
+		// displays the winning screen and score
+		screen.drawWin(g2);
+		board.displayScore(g2, Panel.WIN_W/2-80, Panel.BOARD_H/2);
+		board.stopTime(g2,Panel.WIN_W/2-80, Panel.BOARD_H/2+30);
+		Panel.exitButton.setVisible(true);
+//		System.out.println("In state WIN");
+	}
 }
+	

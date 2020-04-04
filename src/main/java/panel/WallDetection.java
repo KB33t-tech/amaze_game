@@ -12,9 +12,11 @@ public class WallDetection {
 	
 	
 	private Cell cell;
+	private Player player;
 	
 	public WallDetection() {
 		cell = new Cell();
+		player = new Player();
 	}
 	
 	/**
@@ -29,7 +31,7 @@ public class WallDetection {
 		for(int i = 0; i < cell.getMap().length; i++){
 			for(int j = 0; j < cell.getMap()[i].length; j++){
 				
-				if(cell.getMap()[Player.getPlayerX() + 1][Player.getPlayerY()] == 0) {
+				if(cell.getMap()[player.getPlayerX() + 1][player.getPlayerY()] == 0) {
 //					System.out.println((player.getPlayerX()+1) + " " + player.getPlayerY());
 					return true;
 				}
@@ -57,8 +59,8 @@ public class WallDetection {
 				
 				// once Player left the start cell by moving one cell to the right, 
 				// they also cannot move back to the start cell by pressing the left arrow key
-				if(cell.getMap()[Player.getPlayerX() - 1][Player.getPlayerY()] == 0 ||
-						(Player.getPlayerX() == 1) && Player.getPlayerY() == 1) {
+				if(cell.getMap()[player.getPlayerX() - 1][player.getPlayerY()] == 0 ||
+						(player.getPlayerX() == 1) && player.getPlayerY() == 1) {
 //					System.out.println((player.getPlayerX()+1) + " " + player.getPlayerY());
 					return true;
 				}				
@@ -77,7 +79,7 @@ public class WallDetection {
 		for(int i = 0; i < cell.getMap().length; i++){
 			for(int j = 0; j < cell.getMap()[i].length; j++){
 				
-				if(cell.getMap()[Player.getPlayerX()][Player.getPlayerY() - 1] == 0) {
+				if(cell.getMap()[player.getPlayerX()][player.getPlayerY() - 1] == 0) {
 //					System.out.println((player.getPlayerX()) + " " + (player.getPlayerY()-1));
 					return true;
 				}
@@ -96,7 +98,7 @@ public class WallDetection {
 		for(int i = 0; i < cell.getMap().length; i++){
 			for(int j = 0; j < cell.getMap()[i].length; j++){
 							
-				if(cell.getMap()[Player.getPlayerX()][Player.getPlayerY() + 1] == 0) {
+				if(cell.getMap()[player.getPlayerX()][player.getPlayerY() + 1] == 0) {
 //					System.out.println(player.getPlayerX() + " " + (player.getPlayerY()+1));
 					return true;
 				}

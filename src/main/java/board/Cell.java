@@ -74,6 +74,8 @@ public class Cell {
 	private int score;
 	private int time;
 	
+	private Player player;
+	
 	/**
 	 * The constructor sets the initial tile size, score, and time.
 	 */
@@ -81,6 +83,7 @@ public class Cell {
 		cellSize = 60;
 		score = 0;
 		time = 0;
+		player = new Player();
 	}
 	
 	/**
@@ -171,7 +174,7 @@ public class Cell {
 		
 		
 		// turn the start point into a wall once Player left the start cell
-		if(Player.getPlayerX() > 0) {
+		if(player.getPlayerX() > 0) {
 			map[0][1] = 0;
 		}
 		
@@ -181,15 +184,16 @@ public class Cell {
 			
 			//display each item
 			itemi.drawMe(g2);
-			if(itemi.detectCollision(Player.getPlayerX(), Player.getPlayerY(), itemi.getPosX(), itemi.getPosY())) {
+			if(itemi.detectCollision(player.getPlayerX(), player.getPlayerY(), itemi.getPosX(), itemi.getPosY())) {
 			score = itemi.updateScore(score);
 			// remove the item that Player touches
 			if (itemi instanceof Reward) {
 				collected++;
 			}
-			items.remove(itemi);
 			// reset the value of the cell back to 1
-			item_map[Player.getPlayerX()][Player.getPlayerY()] = 1;
+			item_map[itemi.getPosX()][itemi.getPosY()] = 1;
+			items.remove(itemi);
+			
 			}
 		}
 
@@ -217,7 +221,7 @@ public class Cell {
 				bonusi.drawMe(g2);
 				
 				// when the bonus reward is visible, detect if Player and bonus reward touch
-				if(bonusi.detectCollision(Player.getPlayerX(), Player.getPlayerY(), bonusi.getPosX(), bonusi.getPosY())) {
+				if(bonusi.detectCollision(player.getPlayerX(), player.getPlayerY(), bonusi.getPosX(), bonusi.getPosY())) {
 					
 					// update the score
 					score = bonusi.updateScore(score);
@@ -278,7 +282,7 @@ public class Cell {
 
 		// check if all regular rewards have been collected and if Player is on the exit cell
 		// change the game state to "WIN"
-		if(Player.getPlayerX() == 9 && Player.getPlayerY() == 8) {
+		if(player.getPlayerX() == 9 && player.getPlayerY() == 8) {
 			if(collected == rewardNum) {
 				System.out.println("Done");
 				Panel.stateStr = "WIN";

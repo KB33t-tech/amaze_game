@@ -168,7 +168,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		
 		// switches the state of the game by passing the state string
 		// and draws according to the state
-		cs.getState(g2, State.valueOf(stateStr));
+		cs.switchState(g2, State.valueOf(stateStr));
 		
 		enemyCollision();
 
