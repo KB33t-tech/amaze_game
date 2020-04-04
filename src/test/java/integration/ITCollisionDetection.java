@@ -19,12 +19,13 @@ import board.Reward;
 public class ITCollisionDetection {
 	
 	private Player player;
-	private ArrayList <Item> item = new ArrayList<Item>();
+	private ArrayList <Item> item;
 	private boolean hit;
 	
 	@BeforeEach
 	void init() {
 		player = new Player();
+		item = new ArrayList<Item>();
 	}
 	
 	
@@ -43,6 +44,7 @@ public class ITCollisionDetection {
 		assertFalse(hit);
 //		System.out.println(hit);
 	}
+	
 	
 	@Test
 	void TestPunishmentCollision() {
