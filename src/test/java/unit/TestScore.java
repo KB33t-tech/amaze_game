@@ -1,6 +1,11 @@
-package board;
+package unit;
 
 import org.junit.jupiter.api.Test;
+
+
+import board.Bonus;
+import board.Punishment;
+import board.Reward;
 
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.*;

@@ -1,7 +1,13 @@
-package board;
+package unit;
 import panel.Panel;
 
+
 import org.junit.jupiter.api.Test;
+
+import board.Cell;
+import board.Enemy;
+import board.Player;
+
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.*;
 
