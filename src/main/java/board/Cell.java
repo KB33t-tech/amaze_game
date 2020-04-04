@@ -83,17 +83,16 @@ public class Cell {
 		time = 0;
 	}
 	
-
 	/**
 	 * This method randomly adds regular rewards to the map.
-	 * @param count		an int variable that holds the total number of regular rewards on the map
+	 * @param count		keeps track of how many rewards have been generated
+	 * @param total		the total number of regular rewards on the map
 	 * @return			the total number of regular rewards on the map
 	 */
-	public int rewardGenerator(int count) {
+	public int rewardGenerator(int count, int total) {
 		// randomly generates the position for each regular reward, 
 		// and change the value of that cell to 99 to indicate that it contains a regular reward
-		// a total of 15 regular rewards will be generated (can be any number)
-		for (int i = 0; count < 15; i++){
+		for (int i = 0; count < total; i++){
 			randomX = (int)Item.random(1, 9);
 			randomY = (int)Item.random(1, 9);		
 			
@@ -103,7 +102,8 @@ public class Cell {
 				
 				count+=1;
 				
-				// when an unused cell is found, add a new reward to the reward arrayList with this position:
+				// when an unused cell is found
+				//add a new reward to the reward arrayList with this position:
 				items.add(new Reward (randomX, randomY));
 			}
 		}
@@ -113,13 +113,15 @@ public class Cell {
 	
 	
 	/**
-	 * This method randomly adds punishments to the map.
+	 * 
+	 * @param count		keeps track of how many rewards have been generated
+	 * @param total		the total number of regular rewards on the map
+	 * @return			the total number of regular rewards on the map
 	 */
-	public void punishmentGenerator() {
+	public int punishmentGenerator(int count, int total) {
 		// randomly generates the position for each punishment
 		// and change the value of that cell to 5 to indicate that it contains a punishment
-		// a total of 3 punishments will be generated (can be any number)
-		for (int i = 0; punishmentNum < 3; i++){
+		for (int i = 0; count < total; i++){
 			randomX = (int)Item.random(1, 9);
 			randomY = (int)Item.random(1, 9);		
 			
@@ -128,12 +130,14 @@ public class Cell {
 					&& item_map[randomX][randomY] != 99 && item_map[randomX][randomY] != 5 ) {
 				item_map[randomX][randomY] = 5;
 				
-				punishmentNum+=1;
+				count+=1;
 				
 				// when an unused cell is found, add a new punishment to the punishment arrayList with this position:
 				items.add(new Punishment (randomX, randomY));
 			}
 		}
+		
+		return count;
 	}
 	
 	
@@ -145,8 +149,8 @@ public class Cell {
 	 */
 	public void drawMap(Graphics2D g2) {
 		
-		rewardNum = rewardGenerator(rewardNum);
-		punishmentGenerator();
+		rewardNum = rewardGenerator(rewardNum, 15);
+		punishmentNum = punishmentGenerator(punishmentNum, 3);
 //		System.out.println("num " + rewardNum);
 		
 		// draws the walls of the maze

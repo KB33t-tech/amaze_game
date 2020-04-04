@@ -3,6 +3,7 @@ package panel;
 import org.junit.jupiter.api.Test;
 
 
+
 import board.Cell;
 import board.Player;
 
@@ -15,7 +16,7 @@ public class TestWallDetection {
 
 	private Player p;
 	private Cell c;
-	private WallDetection wd;
+	private WallDetection wd = new WallDetection();
 	private boolean stop;
 
 	void printMap() {
@@ -31,8 +32,7 @@ public class TestWallDetection {
 	void init() {
 		p = new Player();
 		c = new Cell();
-		wd = new WallDetection();
-		printMap();
+//		printMap();
 	}
 	
 	

@@ -24,41 +24,47 @@ public class TestDetectWin {
 	
 	
 	@Test
-	void testStillInGame() {
-		int score = 10;
-		
-		// Player is still playing when on the exit cell 
-		// but has not collected all the regular rewards
+	void testStillInGameOne() {
+		// Player is still playing when on the exit cell but has not collected all the regular rewards
+		// detectWin(score, collected, rewardNum)
 		p.move(9, 7);
-		state = cell.detectWin(score, 8, 15);
+		state = cell.detectWin(10, 8, 15);
 		assertEquals(state, "GAME");
-		
-		
-		// Player is still playing when not on the exit cell but has collected all the regular rewards
-		p.move(-1, 0);
-		state = cell.detectWin(score, 15, 15);
-		assertEquals(state, "GAME");
-		
+
 //		System.out.println(e.getEnemyX() + " " + e.getEnemyY());
 //		System.out.println(state);
-
+	}
+	
+	@Test
+	void testStillInGameTwo() {
+		// Player is still playing when not on the exit cell but has collected all the regular rewards
+		p.move(1, 0);
+		state = cell.detectWin(10, 15, 15);
+		assertEquals(state, "GAME");			
 	}
 
 	
 	@Test
-    void testLose() throws IOException {
-		
-		Panel panel = new Panel(null);
+    void testLoseOne() {
 		// Player loses when score is negative and has not collected all the regular rewards
-		int score = -10;
-		state = cell.detectWin(score, 10, 15);
+		// detectWin(score, collected, rewardNum)
+		state = cell.detectWin(-10, 10, 15);
 		assertEquals(state, "LOSE");
-		
+	}
+	
+	
+	@Test
+	void testLoseTwo() {
 		// Player loses when score is negative despite all the regular rewards have been collected
-		state = cell.detectWin(score, 15, 15);
+		state = cell.detectWin(-10, 15, 15);
 		assertEquals(state, "LOSE");
-		
+	}
+	
+	
+	@Test
+	void testLoseThree() throws IOException {
 		// Player and Enemy collide
+		Panel panel = new Panel(null);
 		p.move(9, 7);
 		state = panel.enemyCollision();
 		assertEquals(state, "LOSE");
@@ -67,11 +73,9 @@ public class TestDetectWin {
 
 	@Test
 	void testWin() {
-		int score = 10;
-		
 		// Player only wins when score is positive, has collected all the regular rewards, and on the exit cell
 		p.move(9, 7);
-		state = cell.detectWin(score, 15, 15);
+		state = cell.detectWin(10, 15, 15);
 		assertEquals(state, "WIN");
 	}
 	

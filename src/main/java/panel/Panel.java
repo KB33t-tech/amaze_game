@@ -258,14 +258,15 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 				 * I'm trying to implement AI and player detection here but should probably 
 				 * be more encapsulated, could have the move function pass in the state by value
 				 */
-			cell.updateTime();
+				cell.updateTime();
+				
 				for(int i=0;i<10;i++) {
 					for(int j=0;j<10;j++) {
 						weightedMap[i][j] = 10000;
 					}
 				}	
 				
-				player.beacon(weightedMap, cell.getMap(),player.getPlayerX(),player.getPlayerY(),0);
+				player.beacon(weightedMap, cell.getMap(), player.getPlayerX(),player.getPlayerY(),0);
 				enemy.track(weightedMap);	// Moving Enemy starts tracking Player
 				
 				if(player.getPlayerX() != 9) {	// prevents the player from going out of the screen when at the exit
