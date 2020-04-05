@@ -33,6 +33,7 @@ public class ITCollisionDetection {
 	void TestRewardCollision() {
 		item.add(new Reward(5, 6));
 		item.add(new Reward(1, 5));
+		item.add(new Reward(5, 1));
 		player.move(5, 5);
 		
 		hit = item.get(0).detectCollision(player.getPlayerX(), player.getPlayerY(), 
@@ -41,6 +42,10 @@ public class ITCollisionDetection {
 		
 		hit = item.get(1).detectCollision(player.getPlayerX(), player.getPlayerY(), 
 				item.get(1).getPosX(), item.get(1).getPosY());
+		assertFalse(hit);
+		
+		hit = item.get(2).detectCollision(player.getPlayerX(), player.getPlayerY(), 
+				item.get(2).getPosX(), item.get(2).getPosY());
 		assertFalse(hit);
 //		System.out.println(hit);
 	}

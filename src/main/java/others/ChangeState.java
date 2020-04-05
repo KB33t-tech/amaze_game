@@ -43,7 +43,6 @@ public class ChangeState {
 	 */
 	public void switchState(Graphics2D g2, State state) {
 		
-	
 		switch(state) {
 		
 			// if the state is "START_SCREEN"
