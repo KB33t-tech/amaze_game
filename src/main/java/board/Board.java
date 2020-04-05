@@ -26,10 +26,12 @@ public class Board {
 	// text that is used to display the score
 	private Font scoreText;
 	
+	private int timer;
+	
 	/**
 	 * The constructor assigns the position to each regular reward and load an image to {@link Board#boardImg}.
 	 */
-	public Board(){
+	public Board() {
 		try {
 			boardImg = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream("Board.png"));
 		} catch (IOException e) {
@@ -40,6 +42,8 @@ public class Board {
 		
 		// set the property of the text 
 		scoreText = new Font("Courier New", Font.PLAIN | Font.ROMAN_BASELINE, 25);
+		
+		timer = 0;
 	}
 	
 	/**

@@ -304,6 +304,7 @@ public class Cell {
 		return score;
 	}
 	
+	
 	/**
 	 * This method is called in {@link Board#displayTime(Graphics2D, int, int)} 
 	 * so that the board can display the latest time.
@@ -312,7 +313,7 @@ public class Cell {
 	public int updateTime() {
 		return (++time/30);	//time is displayed in seconds
 	}
-	
+
 	/**
 	 * This method is called in {@link Board#displayTime(Graphics2D, int, int)} 
 	 * Method is use to stop the time.

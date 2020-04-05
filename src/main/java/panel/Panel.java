@@ -177,9 +177,14 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	
 	public String enemyCollision() {
 		// detects if player and moving enemy touch
-		if(player.getPlayerX() == enemy.getEnemyX() && player.getPlayerY() == enemy.getEnemyY()) {
+		if(player.getPlayerX() >= enemy.getEnemyX() && 
+				player.getPlayerX() <= enemy.getEnemyX()*60 &&
+				player.getPlayerY() >= enemy.getEnemyY() && 
+				player.getPlayerY() <= enemy.getEnemyY()*60) {
+			
 			stateStr = "LOSE";
 		}
+
 		 return stateStr;
 	}
 
@@ -250,6 +255,7 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 		// if the state of the game is "GAME"
 		if(stateStr == "GAME") {
 			
+		
 			tickCount ++;	// increment tickCount
 			
 			// during each TICK of the game:
