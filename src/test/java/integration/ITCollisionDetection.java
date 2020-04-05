@@ -31,16 +31,16 @@ public class ITCollisionDetection {
 	
 	@Test
 	void TestRewardCollision() {
-		item.add(new Reward(5, 5));
+		item.add(new Reward(5, 6));
 		item.add(new Reward(1, 5));
-		player.move(5, 4);
+		player.move(5, 5);
 		
 		hit = item.get(0).detectCollision(player.getPlayerX(), player.getPlayerY(), 
-				item.get(0).getPosX(), item.get(0).getPosX());
+				item.get(0).getPosX(), item.get(0).getPosY());
 		assertTrue(hit);
 		
 		hit = item.get(1).detectCollision(player.getPlayerX(), player.getPlayerY(), 
-				item.get(1).getPosX(), item.get(1).getPosX());
+				item.get(1).getPosX(), item.get(1).getPosY());
 		assertFalse(hit);
 //		System.out.println(hit);
 	}
@@ -48,31 +48,31 @@ public class ITCollisionDetection {
 	
 	@Test
 	void TestPunishmentCollision() {
-		item.add(new Punishment(6, 6));
+		item.add(new Punishment(6, 8));
 		item.add(new Punishment(8, 5));
-		player.move(6, 5);
+		player.move(6, 7);
 	
 		hit = item.get(0).detectCollision(player.getPlayerX(), player.getPlayerY(), 
-				item.get(0).getPosX(), item.get(0).getPosX());
+				item.get(0).getPosX(), item.get(0).getPosY());
 		assertTrue(hit);
 		
 		hit = item.get(1).detectCollision(player.getPlayerX(), player.getPlayerY(), 
-				item.get(1).getPosX(), item.get(1).getPosX());
+				item.get(1).getPosX(), item.get(1).getPosY());
 		assertFalse(hit);
 	}
 	
 	@Test
 	void TestBonusCollision() {
-		item.add(new Bonus(7, 7));
+		item.add(new Bonus(7, 6));
 		item.add(new Bonus(8, 5));
-		player.move(7, 6);
+		player.move(7, 5);
 	
 		hit = item.get(0).detectCollision(player.getPlayerX(), player.getPlayerY(), 
-				item.get(0).getPosX(), item.get(0).getPosX());
+				item.get(0).getPosX(), item.get(0).getPosY());
 		assertTrue(hit);
 		
 		hit = item.get(1).detectCollision(player.getPlayerX(), player.getPlayerY(), 
-				item.get(1).getPosX(), item.get(1).getPosX());
+				item.get(1).getPosX(), item.get(1).getPosY());
 		assertFalse(hit);
 	}
 
