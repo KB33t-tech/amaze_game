@@ -180,5 +180,19 @@ public class Player{
 	public int getPosY() {
 		return posY;
 	}
+	/**
+	 * method to set x-position used for testing
+	 * @param x
+	 */
+	public void setPosX(int x) {
+		posX = x;
+	}
+	/**
+	 * method to set y-position used for testing
+	 * @param y
+	 */
+	public void setPosY(int y) {
+		posY = y;
+	}
 	
 }
