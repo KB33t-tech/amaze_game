@@ -30,12 +30,12 @@ public class TestItems {
 	@Test
 	void testRewardGenerator() {
 		
-		itemCount = c.rewardGenerator(itemCount, 5);
-		assertEquals(itemCount, 5);
+		itemCount = c.rewardGenerator(5, itemCount);
+		assertEquals(5, itemCount);
 		
 		itemCount = 0;
-		itemCount = c.rewardGenerator(itemCount, 10);
-		assertEquals(itemCount, 10);
+		itemCount = c.rewardGenerator(10, itemCount);
+		assertEquals(10, itemCount);
 		/*
 		for(int i = 0; i < c.getItemMap().length; i++){
 			for(int j = 0; j < c.getItemMap()[i].length; j++){
@@ -49,12 +49,12 @@ public class TestItems {
 	
 	@Test
     void testPunishmentGenerator() {
-		itemCount = c.punishmentGenerator(itemCount, 2);
-		assertEquals(itemCount, 2);
+		itemCount = c.punishmentGenerator(2, itemCount);
+		assertEquals(2, itemCount);
 		
 		itemCount = 0;
-		itemCount = c.punishmentGenerator(itemCount, 7);
-		assertEquals(itemCount, 7);
+		itemCount = c.punishmentGenerator(7, itemCount);
+		assertEquals(7, itemCount);
 		/*
 		for(int i = 0; i < c.getItemMap().length; i++){
 			for(int j = 0; j < c.getItemMap()[i].length; j++){
@@ -68,26 +68,26 @@ public class TestItems {
 	
 	@Test
 	void testRewardAndDetectWinOne() {
-		itemCount = c.rewardGenerator(itemCount, 5);
+		itemCount = c.rewardGenerator(5, itemCount);
 		p.move(9, 7);
 		System.out.println(itemCount);
 		state = c.detectWin(10, 5, itemCount);
-		assertEquals(state, "WIN");
+		assertEquals("WIN", state);
 	}
 	
 	@Test
 	void testRewardAndDetectWinTwo() {
-		itemCount = c.rewardGenerator(itemCount, 10);
+		itemCount = c.rewardGenerator(10, itemCount);
 		p.move(9, 7);
 		state = c.detectWin(10, 8, itemCount);
-		assertEquals(state, "GAME");
+		assertEquals("GAME", state);
 	}
 	
 	@Test
 	void testRewardAndDetectWinThree() {
-		itemCount = c.rewardGenerator(itemCount, 12);
+		itemCount = c.rewardGenerator(12, itemCount);
 		p.move(8, 7);
 		state = c.detectWin(-10, 12, itemCount);
-		assertEquals(state, "LOSE");
+		assertEquals("LOSE", state);
 	}
 }

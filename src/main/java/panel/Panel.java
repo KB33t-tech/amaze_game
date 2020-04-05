@@ -182,7 +182,6 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 			
 			stateStr = "LOSE";
 		}
-
 		 return stateStr;
 	}
 
