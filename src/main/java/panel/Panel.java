@@ -177,10 +177,8 @@ public class Panel extends JPanel implements ActionListener, KeyListener {
 	
 	public String enemyCollision() {
 		// detects if player and moving enemy touch
-		if(player.getPlayerX() >= enemy.getEnemyX() && 
-				player.getPlayerX() <= enemy.getEnemyX()*60 &&
-				player.getPlayerY() >= enemy.getEnemyY() && 
-				player.getPlayerY() <= enemy.getEnemyY()*60) {
+		if(Math.abs(player.getPosX() - enemy.getPosX())<5 &&
+				Math.abs(player.getPosY() - enemy.getPosY())<5) {
 			
 			stateStr = "LOSE";
 		}

@@ -253,4 +253,18 @@ public class Enemy {
 		this.weightedMap = weightedMap;
 	}
 	*/
+	/**
+	 * returns the x-position where this object is drawn
+	 * @return
+	 */
+	public int getPosX() {
+		return posX;
+	}
+	/**
+	 * returns the y-position where this object is drawn
+	 * @return
+	 */
+	public int getPosY() {
+		return posY;
+	}
 }

@@ -277,6 +277,7 @@ public class Cell {
 		
 		// check if the score is negative and change the game state to "LOSE" if it is
 		if(score < 0) {
+
 			Panel.stateStr = "LOSE";
 		}
 
