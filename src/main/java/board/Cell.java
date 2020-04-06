@@ -312,7 +312,7 @@ public class Cell {
 	 * @return   the latest time
 	 */
 	public int updateTime() {
-		return (++time/30);	//time is displayed in seconds
+		return (++time/Panel.TICK);	//time is displayed in seconds
 	}
 
 	/**
@@ -321,7 +321,7 @@ public class Cell {
 	 * @return   the latest time
 	 */
 	public int stopTime() {
-		return time/30;
+		return time/Panel.TICK;
 	}
 	
 	
