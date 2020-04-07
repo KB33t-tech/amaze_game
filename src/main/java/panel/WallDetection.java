@@ -26,19 +26,11 @@ public class WallDetection {
 	 * @return		direction that Player will be moving in
 	 */
 	public boolean right_stop() {
-		
-		try {
+
 				if(cell.getMap()[player.getPlayerX() + 1][player.getPlayerY()] == 0) {
 //					System.out.println((player.getPlayerX()+1) + " " + player.getPlayerY());
 					return true;
-		}	
-		
-		}catch(ArrayIndexOutOfBoundsException e) {
-			System.out.println("Out of bound");
-		}catch(Exception e2) {
-			System.out.println("Others");
-		}
-		
+
 		return false;
 	}
 	
