@@ -28,14 +28,9 @@ public class WallDetection {
 	public boolean right_stop() {
 		
 		try {
-		for(int i = 0; i < cell.getMap().length; i++){
-			for(int j = 0; j < cell.getMap()[i].length; j++){
-				
 				if(cell.getMap()[player.getPlayerX() + 1][player.getPlayerY()] == 0) {
 //					System.out.println((player.getPlayerX()+1) + " " + player.getPlayerY());
 					return true;
-				}
-			}
 		}	
 		
 		}catch(ArrayIndexOutOfBoundsException e) {
@@ -54,17 +49,13 @@ public class WallDetection {
 	 * @return		direction that Player will be moving in
 	 */
 	public boolean left_stop() {
-		for(int i = 0; i < cell.getMap().length; i++){
-			for(int j = 0; j < cell.getMap()[i].length; j++){
-				
+
 				// once Player left the start cell by moving one cell to the right, 
 				// they also cannot move back to the start cell by pressing the left arrow key
 				if(cell.getMap()[player.getPlayerX() - 1][player.getPlayerY()] == 0 ||
 						(player.getPlayerX() == 1) && player.getPlayerY() == 1) {
 //					System.out.println((player.getPlayerX()+1) + " " + player.getPlayerY());
 					return true;
-				}				
-			}
 		}
 		return false;
 	}
@@ -76,15 +67,12 @@ public class WallDetection {
 	 * @return		direction that Player will be moving in
 	 */
 	public boolean up_stop() {
-		for(int i = 0; i < cell.getMap().length; i++){
-			for(int j = 0; j < cell.getMap()[i].length; j++){
-				
+
 				if(cell.getMap()[player.getPlayerX()][player.getPlayerY() - 1] == 0) {
 //					System.out.println((player.getPlayerX()) + " " + (player.getPlayerY()-1));
 					return true;
-				}
-			}
-		}
+					}
+				
 		return false;
 	}
 	
@@ -95,15 +83,10 @@ public class WallDetection {
 	 * @return		direction that Player will be moving in
 	 */
 	public boolean down_stop() {
-		for(int i = 0; i < cell.getMap().length; i++){
-			for(int j = 0; j < cell.getMap()[i].length; j++){
-							
 				if(cell.getMap()[player.getPlayerX()][player.getPlayerY() + 1] == 0) {
 //					System.out.println(player.getPlayerX() + " " + (player.getPlayerY()+1));
 					return true;
-				}
-			}
-		}
+					}
 		return false;
 	}
 
