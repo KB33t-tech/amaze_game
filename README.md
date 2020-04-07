@@ -1,5 +1,7 @@
-Commands for building, running, and testing the game  
-
+Instructions and commands for building, running, and testing the game  
+  
+cd into the base directory called "project", and perform the following commands:  
+  
 1. Compile the program and run the game:  
 	Step 1:	mvn clean install  
 	Step 2:	java -cp target/project-0.0.1-SNAPSHOT.jar panel.Frame  
