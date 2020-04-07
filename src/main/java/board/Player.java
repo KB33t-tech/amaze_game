@@ -151,13 +151,7 @@ public class Player{
 		g2.drawImage(playerImg, posX, posY, 60, 60, null);
 	}
 	
-	
-	public boolean enemyCollision(int a, int b, int c, int d) {
-		if(Math.abs(a - c)<5 && Math.abs(b - d) <5) {
-			return true;
-		}
-		return false;
-	}
+
 	
 	/**
 	 * This method is a getter for Player's x-coordinate.

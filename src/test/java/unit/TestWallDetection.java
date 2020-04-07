@@ -33,7 +33,7 @@ public class TestWallDetection {
 	void init() {
 		p = new Player();
 		c = new Cell();
-//		printMap();
+		printMap();
 	}
 	
 	

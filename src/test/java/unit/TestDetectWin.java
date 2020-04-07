@@ -65,24 +65,7 @@ public class TestDetectWin {
 		state = cell.detectWin(-10, 15, 15);
 		assertEquals("LOSE", state);
 	}
-	
-	/*
-	
-	@Test
-	void testLoseThree() throws IOException {
-		// Player and Enemy collide
-		Panel panel = new Panel(null);
-		p.move(9, 7);
-		p.update();
-		e = new Enemy(9, 8, 0, 0);
-		boolean hit = p.collision(9, 8, 9, 8);
-		System.out.println(p.getPlayerX()+ " "+ p.getPlayerY()+ " "+ e.getEnemyX()+ " "+ e.getEnemyY());
-		System.out.println(hit);
 
-		
-		assertEquals("LOSE", state);
-	}
-	*/
 
 	@Test
 	void testWin() {
