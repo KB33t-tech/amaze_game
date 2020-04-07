@@ -30,7 +30,7 @@ public class WallDetection {
 				if(cell.getMap()[player.getPlayerX() + 1][player.getPlayerY()] == 0) {
 //					System.out.println((player.getPlayerX()+1) + " " + player.getPlayerY());
 					return true;
-
+				}
 		return false;
 	}
 	
