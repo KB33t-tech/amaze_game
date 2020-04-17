@@ -82,7 +82,12 @@ public class Player{
 	}
 	
 	/**
-	 * This method calculates the distance between Player and Moving Enemy.
+	 * This method calculates the shortest path from Player to Moving Enemy.
+	 * @param wMap	a weighted map
+	 * @param map	the maze map
+	 * @param x		the x-coordinate of Player
+	 * @param y		the y-coordinate of Player
+	 * @param count	the number of cells from Player to Moving Enemy
 	 */
 	public void beacon( int wMap[][], int map[][],int x, int y, int count) { // every tick the player will update the weighted map to show the
 		/*for (int i=0;i<10;i++) {					 // shortest path to it
@@ -169,30 +174,30 @@ public class Player{
 		return playerY;
 	}
 	/**
-	 * returns the x-position where this object is drawn
-	 * @return
+	 * This method returns the x-position where this object is drawn.
+	 * @return	y-coordinate of Player
 	 */
 	public int getPosX() {
 		return posX;
 	}
 	/**
-	 * returns the y-position where this object is drawn
-	 * @return
+	 * This method returns the y-position where this object is drawn.
+	 * @return	y-coordinate of Player
 	 */
 	public int getPosY() {
 		return posY;
 	}
 	
 	/**
-	 * method to set x-position used for testing
-	 * @param x
+	 * This method sets the x-position used for testing.
+	 * @param x		the x-position of Player
 	 */
 	public void setPosX(int x) {
 		posX = x;
 	}
 	/**
-	 * method to set y-position used for testing
-	 * @param y
+	 * This method sets y-position used for testing.
+	 * @param y		the y-position of Player
 	 */
 	public void setPosY(int y) {
 		posY = y;

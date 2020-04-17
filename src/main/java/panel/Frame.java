@@ -31,7 +31,7 @@ public class Frame extends JFrame{
 
 	/**
 	 * This is the main method.
-	 * @param args
+	 * @param args	an args
 	 */
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(new Runnable() {

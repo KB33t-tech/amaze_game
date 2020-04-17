@@ -6,7 +6,6 @@ import board.Player;
 /**
  * This class is wall detection. 
  * The boolean methods are called in {@link Panel#actionPerformed(java.awt.event.ActionEvent)} 
- * @see {@link Panel}
  */
 public class WallDetection {
 	
