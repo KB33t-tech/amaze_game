@@ -126,8 +126,8 @@ public class Enemy {
 	}
 	
 	/**
-	 * search and move ends here
-	 * @param map
+	 * This method searches and moves ends here.
+	 * @param map	the maze map
 	 */
 	public void track(int map[][]) {
 		int up;
@@ -182,12 +182,12 @@ public class Enemy {
 	}
 	
 	/**
-	 * 
-	 * @param u
-	 * @param d
-	 * @param l
-	 * @param r
-	 * @return
+	 * This method calculates the shortest path from Player to Moving Enemy.
+	 * @param u		the up direction
+	 * @param d		the down direction
+	 * @param l		the left direction
+	 * @param r		the right direction
+	 * @return		return the direction
 	 */
 	private String smallest(int u ,int d , int l ,int r) {
 		String dir = "g";
@@ -254,29 +254,29 @@ public class Enemy {
 	}
 	*/
 	/**
-	 * returns the x-position where this object is drawn
-	 * @return
+	 * This method returns the x-position where this object is drawn.
+	 * @return	x-position of Moving Enemy
 	 */
 	public int getPosX() {
 		return posX;
 	}
 	/**
-	 * returns the y-position where this object is drawn
-	 * @return
+	 * This returns the y-position where this object is drawn.
+	 * @return	y-position of Moving Enemy
 	 */
 	public int getPosY() {
 		return posY;
 	}
 	/**
-	 * method to set x-position used for testing
-	 * @param x
+	 * This method sets x-position used for testing.
+	 * @param x		x-position of Moving Enemy
 	 */
 	public void setPosX(int x) {
 		posX = x;
 	}
 	/**
-	 * method to set y-position used for testing
-	 * @param y
+	 * This method sets y-position used for testing.
+	 * @param y		y-position of Moving Enemy
 	 */
 	public void setPosY(int y) {
 		posY = y;

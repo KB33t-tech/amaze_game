@@ -116,7 +116,7 @@ public class Cell {
 	
 	
 	/**
-	 * 
+	 * This methods randomly adds the punishments to the map.
 	 * @param count		keeps track of how many rewards have been generated
 	 * @param total		the total number of regular rewards on the map
 	 * @return			the total number of regular rewards on the map
@@ -261,7 +261,10 @@ public class Cell {
 		return map;
 	}
 	
-	
+	/**
+	 * This method returns the item map that indicates where each item is.
+	 * @return	2D array that stores the item map
+	 */
 	public int[][] getItemMap(){
 		return item_map;
 	}
@@ -269,10 +272,11 @@ public class Cell {
 	
 	/**
 	 * This method detects if Player has won or lost the game.
-	 * @return	 string that shows the state of the game
+	 * @param score 		current score
+	 * @param collected		number of regular rewards that have been collected
+	 * @param rewardNum		number of regular rewards required to collect to win
+	 * @return	string that shows the state of the game
 	 */
-	
-	
 	public String detectWin(int score, int collected, int rewardNum) {
 		
 		// check if the score is negative and change the game state to "LOSE" if it is
@@ -299,7 +303,7 @@ public class Cell {
 	/**
 	 * This method is called in {@link Board#displayScore(Graphics2D, int, int)} 
 	 * so that the board can display the latest score.
-	 * @return   the latest score
+	 * @return score  the latest score
 	 */
 	public int getScore() {
 		return score;

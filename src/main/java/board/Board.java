@@ -49,7 +49,6 @@ public class Board {
 	/**
 	 * This method draws everything that will be displayed during the game.
 	 * This includes the board background, individual cells, regular rewards, bonus rewards, punishments, and score.
-	 * It also calls {@link Cell#detectWin()} to detect whether Player has won or lost.
 	 * @param g2  Java's Graphics2D drawing tool
 	 */
 	public void drawMe(Graphics2D g2) {
@@ -74,7 +73,7 @@ public class Board {
 	}
 	
 	/**
-	 * This method displays the current score {@link Cell#updateScore()} of Player on the screen.
+	 * This method displays the current score of Player on the screen.
 	 * It also sets the text colour to be white.
 	 * @param g2	Java's Graphics2D drawing tool
 	 * @param x	    x-coordinate of the score
