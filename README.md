@@ -3,7 +3,7 @@
 cd into the base directory called "project", and perform the following commands:  
   
 1. Create the artifacts, including JAR file of the program and JavaDocs:  
-	Step1:	mvn clean install
+	Step1:	mvn clean install  
   	Step2: 	from there, one can find the artifacts inside $basedir/target/
   
   
