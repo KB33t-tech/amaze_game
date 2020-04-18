@@ -1,13 +1,21 @@
-**Instructions and commands for creating the artifacts of the program:  **
+**Instructions and commands for creating and using the artifacts of the program:**  
     
 cd into the base directory called "project", and perform the following commands:  
   
-1. Create the artifacts, including JAR file of the program and JavaDocs:  
+1. Create the artifacts, including JAR file of the program and Javadoc:  
 	Step1:	mvn clean install  
-  	Step2: 	from there, one can find the artifacts inside $basedir/target/
+  	Step2: 	from there, one can find the artifacts inside $project/target/  
+  
+2. View the contents of the Javadoc HTML without extracting it:  
+	Step 1:	jar -tvf target/project-0.0.1-SNAPSHOT-javadoc.jar  
+  
+3. View the Javadoc HTML files from Jar:  
+	Step 1:	mvn clean install  
+	Step 2:	cd into the folder named "target"  
+	Step 3:	cd into the folder named "apidocs" and all the Javadoc HTML files are inside it  
   
   
-**Instructions and commands for building, running, and testing the game  **
+**Instructions and commands for building, running, and testing the game**  
   
 cd into the base directory called "project", and perform the following commands:  
   
@@ -35,3 +43,5 @@ cd into the base directory called "project", and perform the following commands:
   
 7. To remove all previous build and test:  
 	Step 1:	mvn clean  
+  
+
