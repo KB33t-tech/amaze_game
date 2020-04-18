@@ -7,6 +7,7 @@ cd into the base directory called "project", and perform the following commands:
   	Step2: 	from there, one can find the artifacts inside $project/target/  
   
 2. View the contents of the Javadoc HTML without extracting it:  
+	Step 1:	mvn clean install  
 	Step 1:	jar -tvf target/project-0.0.1-SNAPSHOT-javadoc.jar  
   
 3. View the Javadoc HTML files from Jar:  
