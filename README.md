@@ -1,4 +1,4 @@
-{\large Instructions and commands for creating the artifacts of the program:  }
+**Instructions and commands for creating the artifacts of the program:  **
     
 cd into the base directory called "project", and perform the following commands:  
   
@@ -7,7 +7,7 @@ cd into the base directory called "project", and perform the following commands:
   	Step2: 	from there, one can find the artifacts inside $basedir/target/
   
   
-{\large Instructions and commands for building, running, and testing the game  }
+**Instructions and commands for building, running, and testing the game  **
   
 cd into the base directory called "project", and perform the following commands:  
   
