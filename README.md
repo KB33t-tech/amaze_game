@@ -1,4 +1,13 @@
-Instructions and commands for building, running, and testing the game  
+{\large Instructions and commands for creating the artifacts of the program:  }
+    
+cd into the base directory called "project", and perform the following commands:  
+  
+1. Create the artifacts, including JAR file of the program and JavaDocs:  
+	Step1:	mvn clean install
+  	Step2: 	from there, one can find the artifacts inside $basedir/target/
+  
+  
+{\large Instructions and commands for building, running, and testing the game  }
   
 cd into the base directory called "project", and perform the following commands:  
   
