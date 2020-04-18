@@ -15,7 +15,7 @@ cd into this project's base directory called **project** and issue the following
 	Step 2:	cd into the folder named "target"  
 	Step 3:	cd into the folder named "apidocs" and all the Javadoc HTML files are inside it  
   
-4: Run the game using the JAR file:    
+4. Run the game using the JAR file:    
 	Step 1:	mvn clean install  
 	Step 2:	java -cp target/project-0.0.1-SNAPSHOT.jar panel.Frame    
   
