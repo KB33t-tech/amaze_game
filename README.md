@@ -1,6 +1,6 @@
-**Instructions and commands for creating and using the artifacts of the program:**  
+#### Instructions and commands for creating and using the artifacts of the program: 
     
-cd into the base directory called "project", and perform the following commands:  
+cd into this project's base directory called **project**, and issue the following commands:  
   
 1. Create the artifacts, including JAR file of the program and Javadoc:  
 	Step1:	mvn clean install  
@@ -16,9 +16,9 @@ cd into the base directory called "project", and perform the following commands:
 	Step 3:	cd into the folder named "apidocs" and all the Javadoc HTML files are inside it  
   
   
-**Instructions and commands for building, running, and testing the game**  
+#### Instructions and commands for building, running, and testing the game
   
-cd into the base directory called "project", and perform the following commands:  
+cd into this project's base directory called **project**, and issue the following commands:  
   
 1. Compile the program and run the game:  
 	Step 1:	mvn clean install  
